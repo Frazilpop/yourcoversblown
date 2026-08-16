@@ -1,0 +1,70 @@
+# GitHub Pages deploy for draculascave.co — installed INTO the public repo.
+#
+# This file is the source of truth and lives here in DCMSX; publish.sh copies it
+# into <public repo>/.github/workflows/pages.yml on every publish, because that
+# repo is an rsync mirror of dist/ and anything not excluded gets deleted.
+#
+# Why this exists at all: the public repo used to be served by GitHub's *legacy*
+# Pages build, which took 9-13 minutes for this site and regularly reported a
+# bogus "errored" status when its own 10-minute deploy step gave up while the
+# deployment was still going. This does the same job in a couple of minutes with
+# real logs. The site is already built — build.js runs locally — so there is no
+# build step here, only an upload and a deploy.
+#
+# Note: Pages is never truly incremental. Legacy or Actions, every deploy
+# publishes a full snapshot of the site, so deploy time tracks total site
+# weight. Keeping the site small (see the SEO panel's image optimiser and GIF
+# converter) is what actually makes this fast.
+#
+# This deploy path depends on Actions being up. If Actions is down (or this
+# workflow is ever the thing in the way) publishing can be put back on the old
+# legacy build with one command, and no content changes:
+#   gh api -X PUT repos/Frazilpop/draculascave.co/pages -f build_type=legacy
+# Switch it back with build_type=workflow. The live site is unaffected by the
+# flip either way — the last successful deployment stays up.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    # public site repos publish from main OR master (audiotheory.co uses master)
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Queue, never cancel. Two concurrent deploys means the second supersedes the
+# first and the first reports "cancelled" — the exact self-inflicted failure
+# the old retry logic used to cause.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Check out the built site
+        uses: actions/checkout@v4
+        with:
+          # this repo carries ~370 MB of history; the deploy only needs the tip
+          fetch-depth: 1
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      # tars the whole checkout (.git and .github are excluded by the action)
+      # — CNAME and .nojekyll are part of the built site and ride along
+      - name: Upload the site as a Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

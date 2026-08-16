@@ -1,0 +1,52 @@
+/* Your Cover's Blown — design tokens. The palette is sampled straight from
+   the riso wordmark (riso_acid): yellow and purple overprint on paper, with
+   the brown their overlap makes. Yellow is decoration only — rules, marker
+   underlines, offset shadows — never text on paper (it can't clear 4.5:1). */
+:root {
+  /* paper & ink */
+  --paper: #f8f2e3;
+  --paper-light: #fbf7ec;   /* the header band — a shade lighter than the page */
+  --paper-deep: #f1e8d2;    /* cards a shade lower than the page */
+  --ink: #241d12;
+  --ink-soft: #56503f;      /* meta lines, captions — 7:1 on paper */
+
+  /* the riso inks */
+  --yellow: #e9c414;
+  --purple: #7a68a0;
+  --purple-text: #695889;   /* purple links, darkened to clear 4.5:1 on paper */
+  --purple-deep: #57487a;
+  --brown: #7a5510;         /* the overprint — accents that must read as text */
+
+  /* washes (band backgrounds) */
+  --wash-yellow: #f3e5ae;
+  --wash-purple: #e3ddef;
+
+  /* chrome */
+  --footer-bg: #241d12;
+  --footer-text: #e9e1cd;
+  --footer-link: #cfc4a6;
+  --footer-link-hover: #fff;
+
+  /* riso offset shadows — solid, misregistered, like the wordmark */
+  --shadow-yellow: 4px 4px 0 var(--yellow);
+  --shadow-purple: 4px 4px 0 var(--purple);
+  --shadow-ink: 4px 4px 0 var(--ink);
+
+  /* rules & borders */
+  --rule: #b4a98c;
+  --border: 2px solid var(--ink);
+
+  /* type */
+  --font-display: 'Baloo 2', 'Arial Rounded MT Bold', Arial, sans-serif;
+  --font-body: 'Nunito', Arial, Helvetica, sans-serif;
+  --fs-body: 106%;            /* ~17px */
+  --lh-body: 1.65;
+  --fs-page-title: 40px;
+  --fs-section-title: 24px;
+  --fs-subtitle: 21px;
+
+  /* layout */
+  --maxw-text: 800px;         /* prose column */
+  --maxw-feature: 1120px;     /* wide elements: episode rows, hosts */
+  --maxw-page: 1200px;
+}

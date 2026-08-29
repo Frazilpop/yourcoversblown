@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
   <title>Your Cover's Blown</title>
   <link>https://yourcoversblown.com/</link>
@@ -7,7 +7,9 @@
   <language>en</language>
   <description>A non-fiction book review podcast</description>
   <itunes:author>Fraser &amp; Ed</itunes:author>
+  <itunes:type>episodic</itunes:type>
   <itunes:explicit>false</itunes:explicit>
+  
   <itunes:category text="Arts"><itunes:category text="Books"/></itunes:category>
   
 

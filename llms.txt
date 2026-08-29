@@ -1,0 +1,19 @@
+# Your Cover's Blown
+
+> A non-fiction book review podcast
+
+Your Cover's Blown is a non-fiction book review podcast hosted by Fraser and Ed. Each episode reviews one non-fiction book. Episodes are listed below and carried in the podcast RSS feed.
+
+## Site
+
+- [Home](https://yourcoversblown.com/): A non-fiction podcast about non-fiction books.
+- [About](https://yourcoversblown.com/about/): About the show: Your Cover's Blown is a non-fiction podcast about non-fiction books.
+
+## Episodes
+
+- [Episodes](https://yourcoversblown.com/episodes/): Every Your Cover's Blown episode, newest first.
+
+## Feeds
+
+- [Podcast RSS feed](https://yourcoversblown.com/feed.xml): The episode feed, with audio enclosures — the same feed the podcast apps subscribe to.
+- [Sitemap](https://yourcoversblown.com/sitemap.xml): Every URL on the site.

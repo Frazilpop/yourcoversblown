@@ -9,8 +9,8 @@
   <itunes:author>Fraser &amp; Ed</itunes:author>
   <itunes:type>episodic</itunes:type>
   <itunes:explicit>false</itunes:explicit>
-  
+  <itunes:owner><itunes:name>Fraser &amp; Ed</itunes:name><itunes:email>hello@yourcoversblown.com</itunes:email></itunes:owner>
   <itunes:category text="Arts"><itunes:category text="Books"/></itunes:category>
-  
+  <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
 
 </channel></rss>

@@ -6,11 +6,22 @@
   <atom:link href="https://yourcoversblown.com/feed.xml" rel="self" type="application/rss+xml"/>
   <language>en</language>
   <description>A non-fiction book review podcast</description>
-  <itunes:author>Fraser &amp; Ed</itunes:author>
+  <itunes:author>Have Your Cake And Eat It</itunes:author>
   <itunes:type>episodic</itunes:type>
   <itunes:explicit>false</itunes:explicit>
-  <itunes:owner><itunes:name>Fraser &amp; Ed</itunes:name><itunes:email>hello@yourcoversblown.com</itunes:email></itunes:owner>
+  <itunes:owner><itunes:name>Have Your Cake And Eat It</itunes:name><itunes:email>hello@yourcoversblown.com</itunes:email></itunes:owner>
   <itunes:category text="Arts"><itunes:category text="Books"/></itunes:category>
   <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
-
+  <item>
+    <title>Never Split the Difference</title>
+    <link>https://yourcoversblown.com/episodes/never-split-the-difference/</link>
+    <guid isPermaLink="true">https://yourcoversblown.com/episodes/never-split-the-difference/</guid>
+    <pubDate>Fri, 04 Sep 2026 09:00:00 +0100</pubDate>
+    <description>An ex-FBI hostage negotiator teaches you how to get your way at work, at home and at the car dealership. This week we're learning to negotiate like a hostage.</description>
+    <content:encoded><![CDATA[<p>Chris Voss was an FBI negotiator and his book contains many practical examples of applying the techniques he learned in everyday life. The downward inflecting DJ voice, mirroring and many other techniques will be studied. All this and more in the first episode of Your Cover's Blown, a reverse yes-ladder of a podcast that will have you uncontrollably exclaiming &quot;That's right!&quot; before the hour is through.</p>
+<p>This week's book: <em>Never Split the Difference</em> by Chris Voss (2016)</p>]]></content:encoded>
+    <enclosure url="https://yourcoversblown.com/media/episodes/ycb-001.mp3" length="46270382" type="audio/mpeg"/>
+    <itunes:episode>1</itunes:episode>
+    <itunes:duration>48:12</itunes:duration>
+  </item>
 </channel></rss>

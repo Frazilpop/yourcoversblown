@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Your Cover's Blown favicon: an open book given the wordmark's riso
+       treatment. Yellow copy up-left, purple copy down-right, and the brown
+       the two inks make where they overprint. Colours are the site tokens. -->
+  <defs>
+    <path id="b" d="M32 16.75 C27 12.75 17 11.75 7 13 L7 50 C17 48.75 27 49.75 32 54 C37 49.75 47 48.75 57 50 L57 13 C47 11.75 37 12.75 32 16.75Z"/>
+    <clipPath id="c"><use href="#b" transform="translate(-3.5 -3.5)"/></clipPath>
+  </defs>
+  <use href="#b" fill="#e9c414" transform="translate(-3.5 -3.5)"/>
+  <use href="#b" fill="#7a68a0" transform="translate(3.5 3.5)"/>
+  <use href="#b" fill="#7a5510" transform="translate(3.5 3.5)" clip-path="url(#c)"/>
+  <path d="M32 20.5 L32 54" stroke="#f8f2e3" stroke-width="2.2" transform="translate(3.5 3.5)"/>
+</svg>

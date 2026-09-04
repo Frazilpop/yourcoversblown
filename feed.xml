@@ -23,6 +23,7 @@
     <enclosure url="https://yourcoversblown.com/media/episodes/ycb-001.mp3" length="46270437" type="audio/mpeg"/>
     <itunes:episode>1</itunes:episode>
     <itunes:duration>48:12</itunes:duration>
+    <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
     <itunes:explicit>true</itunes:explicit>
   </item>
 </channel></rss>

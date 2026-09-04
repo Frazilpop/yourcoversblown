@@ -8,7 +8,7 @@
   <description>A non-fiction podcast about non-fiction books</description>
   <itunes:author>Have Your Cake And Eat It</itunes:author>
   <itunes:type>episodic</itunes:type>
-  <itunes:explicit>false</itunes:explicit>
+  <itunes:explicit>true</itunes:explicit>
   <itunes:owner><itunes:name>Have Your Cake And Eat It</itunes:name><itunes:email>hello@yourcoversblown.com</itunes:email></itunes:owner>
   <itunes:category text="Arts"><itunes:category text="Books"/></itunes:category>
   <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
@@ -23,5 +23,6 @@
     <enclosure url="https://yourcoversblown.com/media/episodes/ycb-001.mp3" length="46270437" type="audio/mpeg"/>
     <itunes:episode>1</itunes:episode>
     <itunes:duration>48:12</itunes:duration>
+    <itunes:explicit>true</itunes:explicit>
   </item>
 </channel></rss>

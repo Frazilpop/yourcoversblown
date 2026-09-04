@@ -47,6 +47,7 @@
 
   /* layout */
   --maxw-text: 800px;         /* prose column */
-  --maxw-feature: 1120px;     /* wide elements: episode rows, hosts */
+  --maxw-episodes: 880px;     /* episode rows: text-only, so barely wider than prose */
+  --maxw-feature: 1120px;     /* wide elements: hosts, gallery, feature images */
   --maxw-page: 1200px;
 }

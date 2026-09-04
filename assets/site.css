@@ -165,6 +165,7 @@ body.font-mono main .block-text {
 .blk--sub-heading { --mb: 24px; }
 .blk--feature-list { --mb: 24px; }
 .blk--feature-image { --mb: var(--feature-image-pad-bottom, 24px); }
+.blk--readers { --mb: 24px; }
 .blk--video { --mb: 24px; }
 .blk--svg-logo { --mt: var(--svg-logo-pad-top, 56px); }
 .blk--gallery { --mb: 24px; }
@@ -308,70 +309,125 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .ycb-listen-compact .dot { margin: 0 8px; }
 
 /* ---------- audio player ---------- */
+/* The player is the one place the riso costume comes off: the site's ink
+   outline and offset shadow made it read as a cartoon box, and a player is
+   an instrument, not a poster. So it sits on the deep paper behind a single
+   hairline, and the controls are drawn plainly — a thin filled track with a
+   small round thumb, times either side, and a skip / play / skip cluster
+   with no boxes round it. --pos and --buf are set by site.js as the audio
+   plays: played fill and buffered wash. */
 .block-audio { max-width: 660px; margin: 0 auto; padding: 0 16px; }
 .ycb-player {
+  --pos: 0%; --buf: 0%;
   display: flex; align-items: center; gap: 18px;
-  border: var(--border); border-radius: 16px;
-  background: var(--paper-deep); box-shadow: var(--shadow-purple);
-  padding: 16px 20px;
+  border: 1px solid rgba(36, 29, 18, 0.13); border-radius: 12px;
+  background: var(--paper-deep);
+  padding: 16px 20px 16px 16px;
 }
 .ycb-player > audio { display: none; }
 .ycb-player noscript audio { display: block; width: 100%; }
+.pl-controls { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
 .pl-play {
-  flex-shrink: 0; width: 58px; height: 58px; border-radius: 50%;
-  border: var(--border); background: var(--yellow); cursor: pointer;
+  flex-shrink: 0; width: 50px; height: 50px; border-radius: 50%;
+  border: 0; background: var(--purple-text); cursor: pointer; color: #fff;
   display: flex; align-items: center; justify-content: center;
-  transition: transform 0.08s ease;
+  transition: background-color 0.15s ease, transform 0.12s ease;
 }
-.pl-play:hover { transform: scale(1.06); }
-.pl-play svg { width: 26px; height: 26px; fill: var(--ink); }
+.pl-play:hover { background: var(--purple-deep); }
+.pl-play:active { transform: scale(0.96); }
+.pl-play svg { width: 22px; height: 22px; fill: currentColor; }
+.pl-icon-play { transform: translateX(1px); }
 .pl-play .pl-icon-pause { display: none; }
 .ycb-player.is-playing .pl-icon-play { display: none; }
 .ycb-player.is-playing .pl-icon-pause { display: block; }
+.pl-skip {
+  position: relative; width: 38px; height: 38px; border-radius: 50%;
+  border: 0; background: transparent; color: var(--ink-soft); cursor: pointer; padding: 0;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+.pl-skip:hover { background: rgba(36, 29, 18, 0.07); color: var(--ink); }
+.pl-skip:active { transform: scale(0.92); }
+/* the glyph carries a heavy stroke in the markup for the riso look — inside
+   the player it is drawn light, to sit beside the plain play disc */
+.pl-skip svg { width: 24px; height: 24px; display: block; margin: 0 auto; stroke-width: 1.9; }
+.pl-skip--fwd svg { transform: scaleX(-1); }
+.pl-skip span {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  padding-top: 2px; font-family: var(--font-body); font-weight: 800; font-size: 9.5px;
+  letter-spacing: -0.2px; pointer-events: none;
+}
 .pl-main { flex: 1; min-width: 0; }
-.pl-title { font-family: var(--font-display); font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+.pl-title { font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.2; margin-bottom: 8px; }
+.pl-bar { display: flex; align-items: center; gap: 12px; }
+.pl-time {
+  flex-shrink: 0; min-width: 3.2em; font-size: 13px; font-weight: 800;
+  color: var(--ink-soft); font-variant-numeric: tabular-nums; letter-spacing: 0.2px;
+}
+.pl-bar .pl-time:last-child { text-align: right; }
+.pl-time:empty { display: none; }
+
+/* the seek bar: a tall, invisible input for a generous hit target, with the
+   thin track and the thumb drawn on the pseudo-elements */
 .pl-seek {
   -webkit-appearance: none; appearance: none;
-  display: block; width: 100%; margin: 8px 0 6px; cursor: pointer;
-  height: 10px; border: 2px solid var(--ink); border-radius: 999px; background: #fff;
+  flex: 1; min-width: 0; display: block; width: 100%; height: 28px; margin: 0;
+  background: transparent; cursor: pointer; touch-action: none; outline: none;
+}
+.pl-seek::-webkit-slider-runnable-track {
+  height: 5px; border-radius: 999px;
+  background: linear-gradient(to right,
+    var(--purple-text) 0 var(--pos),
+    rgba(36, 29, 18, 0.24) var(--pos) var(--buf),
+    rgba(36, 29, 18, 0.12) var(--buf) 100%);
+  transition: height 0.12s ease;
+}
+.pl-seek::-moz-range-track {
+  height: 5px; border-radius: 999px;
+  background: linear-gradient(to right,
+    var(--purple-text) 0 var(--pos),
+    rgba(36, 29, 18, 0.24) var(--pos) var(--buf),
+    rgba(36, 29, 18, 0.12) var(--buf) 100%);
 }
 .pl-seek::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
-  background: var(--purple); border: 2px solid var(--ink); cursor: pointer;
+  -webkit-appearance: none; width: 12px; height: 12px; margin-top: -3px; border-radius: 50%;
+  background: var(--purple-text); border: 0;
+  transition: transform 0.12s ease;
 }
 .pl-seek::-moz-range-thumb {
-  width: 16px; height: 16px; border-radius: 50%;
-  background: var(--purple); border: 2px solid var(--ink); cursor: pointer;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--purple-text); border: 0;
+  transition: transform 0.12s ease;
 }
-.pl-seek::-moz-range-progress { background: var(--purple); height: 6px; border-radius: 999px; }
-.pl-seek:disabled { cursor: default; }
-.pl-row { display: flex; justify-content: space-between; align-items: center; }
-.pl-time { font-size: 14px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
-.pl-skips { display: flex; gap: 8px; }
-.pl-skip {
-  border: 2px solid var(--ink); border-radius: 999px; background: var(--paper);
-  font-family: var(--font-body); font-weight: 800; font-size: 12px;
-  padding: 2px 10px; cursor: pointer; color: var(--ink);
-}
-.pl-skip:hover { background: var(--yellow); }
+.pl-seek:hover::-webkit-slider-thumb, .pl-seek:active::-webkit-slider-thumb { transform: scale(1.25); }
+.pl-seek:hover::-moz-range-thumb, .pl-seek:active::-moz-range-thumb { transform: scale(1.25); }
+.pl-seek:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 5px rgba(122, 104, 160, 0.35); }
+.pl-seek:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 5px rgba(122, 104, 160, 0.35); }
+.pl-seek:disabled { cursor: default; opacity: 0.5; }
+.pl-seek:disabled::-webkit-slider-thumb { transform: none; }
+.pl-seek:disabled::-moz-range-thumb { transform: none; }
 
 /* ---------- episode rows (the listing + episode-list block) ---------- */
-.block-episode-list { max-width: var(--maxw-feature); margin: 0 auto; padding: 0 16px; }
+/* Each episode is a flat riso card on the deeper paper — no outline, no
+   offset shadow, so it stops reading as one enormous button next to the real
+   ones. The coming-soon card below shares the same flat treatment. */
+.block-episode-list { max-width: var(--maxw-episodes); margin: 0 auto; padding: 0 16px; }
 .block-episode-list .block-section-title { padding: 0; margin-bottom: 26px; }
 .episode-rows { list-style: none; margin: 0; padding: 0; }
-.episode-row {
-  display: flex; gap: 26px;
-  padding-bottom: var(--episode-list-row-gap, 30px);
-  margin-bottom: var(--episode-list-row-gap, 30px);
-  border-bottom: 2px dashed var(--rule);
+.episode-row { margin-bottom: var(--episode-list-row-gap, 30px); }
+.episode-row:last-child { margin-bottom: 0; }
+
+.ep-card {
+  position: relative;
+  padding: 24px 30px 26px;
+  border-radius: var(--episode-list-card-radius, 14px);
+  background: var(--paper-deep);
 }
-.episode-row:last-child { border-bottom: 0; margin-bottom: 0; }
-.ep-num {
-  font-family: var(--font-display); font-weight: 800; font-size: 46px; line-height: 1;
-  color: var(--purple); text-shadow: 3px 3px 0 var(--yellow);
-  text-decoration: none; width: 86px; flex-shrink: 0; padding-top: 4px;
+
+.ep-info { flex: 1; min-width: 0; }
+.ep-kicker {
+  margin: 0 0 2px; font-size: 12px; font-weight: 800;
+  letter-spacing: 1.4px; text-transform: uppercase; color: var(--purple-text);
 }
-.ep-info { min-width: 0; }
 .ep-title { font-size: 24px; margin-bottom: 4px; }
 .ep-title a { color: var(--ink); text-decoration: none; }
 .ep-title a:hover { color: var(--purple-text); }
@@ -379,12 +435,45 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .ep-book cite { font-style: italic; font-weight: 800; color: var(--brown); }
 .ep-desc { margin: 0 0 8px; font-size: 16px; }
 .ep-meta { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); }
+
+/* the CTA row: play in place, or read the notes */
+.ep-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; }
+.ep-play { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; flex: 1; }
+.ep-play > audio { display: none; }
+.ep-listen {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 18px 8px 14px; cursor: pointer;
+  border: 0; border-radius: 999px;
+  background: var(--purple-text); color: #fff;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  transition: background-color 0.15s ease, transform 0.12s ease;
+}
+.ep-listen:hover { background: var(--purple-deep); }
+.ep-listen:active { transform: scale(0.98); }
+.ep-listen svg { width: 18px; height: 18px; fill: currentColor; }
+.ep-listen .pl-icon-pause, .ep-listen .ep-listen-pause { display: none; }
+.ep-play.is-playing .pl-icon-play, .ep-play.is-playing .ep-listen-play { display: none; }
+.ep-play.is-playing .pl-icon-pause, .ep-play.is-playing .ep-listen-pause { display: inline; }
+
+/* the seek bar unfolds once the episode has started, and stays while paused */
+.ep-play { --pos: 0%; --buf: 0%; }
+.ep-bar { display: none; align-items: center; gap: 10px; flex: 1; min-width: 210px; }
+.ep-play.is-started .ep-bar { display: flex; }
+
+.ep-notes {
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  color: var(--purple-text); text-decoration: underline;
+  text-decoration-thickness: 2px; text-underline-offset: 3px;
+  text-decoration-color: var(--yellow);
+}
+.ep-notes:hover { color: var(--purple-deep); text-decoration-color: var(--purple); }
+
 .episode-all { text-align: center; margin: 26px 0 0; font-family: var(--font-display); font-weight: 700; font-size: 17px; }
 
 /* the coming-soon card (no published episodes yet) — flat, no outline */
 .episode-empty {
   max-width: 600px; margin: 0 auto; padding: 22px 30px;
-  border-radius: var(--episode-list-card-radius, 6px);
+  border-radius: var(--episode-list-card-radius, 14px);
   background: var(--paper-deep);
   text-align: center;
 }
@@ -399,7 +488,6 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 
 /* ---------- episode page header ---------- */
 .episode-header { text-align: center; max-width: var(--maxw-text); margin: 0 auto; padding: 0 16px; }
-.episode-header .ep-num { display: block; width: auto; font-size: 62px; margin-bottom: 14px; text-shadow: 4px 4px 0 var(--yellow); }
 .episode-header h1 { font-size: 34px; font-weight: 800; margin-bottom: 10px; }
 .episode-header .ep-book { font-size: 18px; margin-bottom: 8px; }
 .episode-header .ep-meta { margin-bottom: 0; }
@@ -484,6 +572,19 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
   .host-card, .host-photo { transition: none; }
 }
 
+/* the readers figure: five layers stacked on one box, the eyes swapped by
+   site.js on a blink; the whole figure sways from the bottom centre */
+.block-readers { text-align: center; padding: 0 16px; }
+.block-readers .readers {
+  position: relative; display: inline-block; width: min(var(--img-maxw, 440px), 100%);
+  transform-origin: 50% 100%; will-change: transform;
+}
+.block-readers .readers img { display: block; width: 100%; height: auto; }
+.block-readers .readers img + img { position: absolute; inset: 0; }
+.block-readers .rd-l-closed, .block-readers .rd-r-closed,
+.block-readers .l-shut .rd-l-open, .block-readers .r-shut .rd-r-open { visibility: hidden; }
+.block-readers .l-shut .rd-l-closed, .block-readers .r-shut .rd-r-closed { visibility: visible; }
+
 /* ---------- lightbox ---------- */
 .ycb-lightbox { border: 0; padding: 0; background: transparent; max-width: 92vw; max-height: 92vh; }
 .ycb-lightbox::backdrop { background: rgba(36, 29, 18, 0.88); }
@@ -500,14 +601,22 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
   :root { --fs-page-title: 32px; --fs-section-title: 22px; }
   /* prose gets more side air than the 16px the wide elements use — a text
      column running edge-to-edge reads wider than everything around it */
-  .block-text, .block-sub-heading, .block-feature-list { padding-left: 28px; padding-right: 28px; }
+  .block-text, .block-sub-heading, .block-feature-list,
+  .block-episode-list { padding-left: 28px; padding-right: 28px; }
   .ycb-nav { gap: 2px 22px; padding-top: 16px; }
   .ycb-nav a { font-size: 16px; }
-  .episode-row { gap: 16px; }
-  .ep-num { font-size: 34px; width: 56px; }
-  .episode-header .ep-num { font-size: 48px; }
   .episode-header h1 { font-size: 28px; }
-  .ycb-player { flex-direction: row; gap: 14px; padding: 14px 16px; }
+  /* phones: the bar takes the full width, the skip / play / skip cluster
+     sits centred beneath it */
+  .ycb-player { flex-wrap: wrap; justify-content: center; gap: 10px 14px; padding: 16px 18px; }
+  .pl-main { flex-basis: 100%; order: -1; }
+  .pl-controls { gap: 10px; }
   .pl-play { width: 48px; height: 48px; }
   .episode-empty { padding: 20px 18px; }
+  /* phones: tighter card, and the Listen now row takes the full width */
+  .ep-card { padding: 18px 18px 20px; }
+  .ep-title { font-size: 21px; }
+  .ep-actions { gap: 10px 14px; }
+  .ep-play { flex-basis: 100%; }
+  .ep-bar { min-width: 0; }
 }

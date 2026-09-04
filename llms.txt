@@ -1,8 +1,8 @@
 # Your Cover's Blown
 
-> A non-fiction book review podcast
+> A non-fiction podcast about non-fiction books
 
-Your Cover's Blown is a non-fiction book review podcast hosted by Fraser and Ed. Each episode reviews one non-fiction book. Episodes are listed below and carried in the podcast RSS feed.
+Your Cover's Blown is a non-fiction podcast about non-fiction books, hosted by Fraser and Ed. Each episode reviews one non-fiction book. Episodes are listed below and carried in the podcast RSS feed.
 
 ## Site
 
@@ -11,7 +11,7 @@ Your Cover's Blown is a non-fiction book review podcast hosted by Fraser and Ed.
 
 ## Episodes
 
-- [Episodes](https://yourcoversblown.com/episodes/): Every episode of Your Cover's Blown — one non-fiction book at a time.
+- [Episodes](https://yourcoversblown.com/episodes/): The Your Cover's Blown backlog.
 - [Never Split the Difference – Chris Voss](https://yourcoversblown.com/episodes/never-split-the-difference/): An ex-FBI hostage negotiator teaches you how to get your way at work, at home and at the car dealership. This week we're learning to negotiate like a hostage.
 
 ## Feeds

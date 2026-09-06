@@ -130,8 +130,12 @@ body.font-mono main .block-text {
 .ycb-byline a:hover { color: var(--footer-link-hover); }
 .ycb-byline-icon { display: block; }
 .ycb-footer-right { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 18px; }
-.ycb-socials { display: flex; align-items: center; gap: 12px; }
-.ycb-socials img { display: block; width: 20px; height: 20px; }
+.ycb-socials { display: flex; align-items: center; gap: 14px; }
+.ycb-socials a { display: block; padding: 4px 0; }
+/* the glyphs are drawn in --footer-link; lifting them to full white on hover is
+   the same brightening the footer links do, done to a picture */
+.ycb-socials img { display: block; width: 20px; height: 20px; opacity: .85; transition: opacity .12s, filter .12s; }
+.ycb-socials a:hover img { opacity: 1; filter: brightness(1.35); }
 .ycb-footer-links { display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .ycb-footer-links a { color: var(--footer-link); text-decoration: none; padding: 8px 0; }
 .ycb-footer-links a:hover { color: var(--footer-link-hover); text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 2px; }

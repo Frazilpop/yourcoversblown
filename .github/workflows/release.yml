@@ -1,0 +1,90 @@
+# Release a scheduled episode — installed INTO the public repo by publish.sh
+# (as .github/workflows/release.yml, beside pages.yml and .github/release.sh),
+# with Frazilpop/yourcoversblown-scheduled replaced by the site's private holding repo.
+#
+# The holding repo carries one complete build of the site per booked release,
+# under releases/<stamp>/ (core/scripts/schedule.js writes them). Firing this
+# copies the newest DUE one over main and deploys it, then removes what it
+# released from the holding repo. Nothing due, nothing happens – so it is safe
+# to fire every Friday whether or not an episode is booked.
+#
+# Who fires it: the release/ Cloudflare Worker at 09:00 UK every Friday
+# (workflow_dispatch, to the minute), and the two crons below as a backup a
+# quarter of an hour later. GitHub's cron runs late by minutes, sometimes
+# tens of minutes, which is why it is not the primary. Both crons are safe in
+# both halves of the year: a stamp is the release instant in UTC, and 08:15
+# UTC in winter is 08:15 GMT – before a 09:00 GMT release, so nothing is due.
+#
+# Needs one repository secret: SCHEDULE_TOKEN, a fine-grained token with
+# Contents read/write on the holding repo (docs/scheduled-release.md).
+#
+# The public checkout goes in site/ and the holding one in holding/, and only
+# site/ is uploaded – the holding checkout carries releases that must not go
+# out yet, and upload-pages-artifact takes everything under the path it is given.
+name: Release a scheduled episode
+
+on:
+  workflow_dispatch:
+    inputs:
+      stamp:
+        description: 'Release this folder now, whatever its time (e.g. 2026-09-18T08-00-00Z). Blank = whatever is due.'
+        required: false
+        default: ''
+  schedule:
+    - cron: '15 8 * * 5'
+    - cron: '15 9 * * 5'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Same group as the Pages deploy: a release and a publish never run over each
+# other, and neither is ever cancelled by the other.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Check out the live site
+        uses: actions/checkout@v4
+        with:
+          path: site
+          fetch-depth: 1
+
+      - name: Check out the held releases
+        uses: actions/checkout@v4
+        with:
+          repository: Frazilpop/yourcoversblown-scheduled
+          token: ${{ secrets.SCHEDULE_TOKEN }}
+          path: holding
+          fetch-depth: 1
+
+      - name: Copy the due release over the live site
+        id: release
+        env:
+          HOLDING: holding
+          SITE: site
+          STAMP: ${{ inputs.stamp }}
+        run: bash site/.github/release.sh
+
+      - name: Configure Pages
+        if: steps.release.outputs.released != ''
+        uses: actions/configure-pages@v5
+
+      - name: Upload the site as a Pages artifact
+        if: steps.release.outputs.released != ''
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to Pages
+        if: steps.release.outputs.released != ''
+        id: deploy
+        uses: actions/deploy-pages@v4

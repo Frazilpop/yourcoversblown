@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dcmsx="https://github.com/Frazilpop/DCMSX">
 <channel>
   <title>Your Cover's Blown</title>
   <link>https://yourcoversblown.com/</link>
@@ -25,5 +25,7 @@
     <itunes:duration>48:12</itunes:duration>
     <itunes:image href="https://yourcoversblown.com/media/site/brand/episode-cover.jpg"/>
     <itunes:explicit>true</itunes:explicit>
+    <dcmsx:book>Never Split the Difference</dcmsx:book>
+    <dcmsx:bookAuthor>Chris Voss</dcmsx:bookAuthor>
   </item>
 </channel></rss>

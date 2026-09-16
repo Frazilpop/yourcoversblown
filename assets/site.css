@@ -363,6 +363,17 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .pl-main { flex: 1; min-width: 0; }
 .pl-title { font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.2; margin-bottom: 8px; }
 .pl-bar { display: flex; align-items: center; gap: 12px; }
+/* the chapter list under the player: plain rows, the time in the player's
+   figures, the current one lit while it plays */
+.ep-chapters { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--rule, rgba(0,0,0,.12)); }
+.ep-chapters li { border-bottom: 1px solid var(--rule, rgba(0,0,0,.12)); }
+.ep-chapters button { display: flex; gap: 14px; align-items: baseline; width: 100%; padding: 9px 4px; margin: 0;
+  background: none; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; border-radius: 6px; }
+.ep-chapters button:hover { background: rgba(0,0,0,.05); }
+.ep-chapters .ch-time { flex: none; min-width: 44px; font-size: 13px; font-weight: 800; letter-spacing: .6px;
+  font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+.ep-chapters .ch-title { font-size: 15px; }
+.ep-chapters li.is-current .ch-time, .ep-chapters li.is-current .ch-title { color: var(--accent, inherit); }
 .pl-time {
   flex-shrink: 0; min-width: 3.2em; font-size: 13px; font-weight: 800;
   color: var(--ink-soft); font-variant-numeric: tabular-nums; letter-spacing: 0.2px;

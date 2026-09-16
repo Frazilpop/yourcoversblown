@@ -127,6 +127,23 @@
           draw();
         });
       });
+      // the chapter list under the player: a row takes the player there and
+      // starts it; the row playing is marked as the time passes
+      var chapters = Array.prototype.slice.call(box.parentNode ? box.parentNode.querySelectorAll('[data-chapter]') : []);
+      chapters.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          audio.currentTime = Number(btn.dataset.chapter) || 0;
+          draw();
+          audio.play().catch(function () {});
+        });
+      });
+      if (chapters.length) {
+        audio.addEventListener('timeupdate', function () {
+          var now = audio.currentTime, on = null;
+          chapters.forEach(function (btn) { if (Number(btn.dataset.chapter) <= now + 0.5) on = btn; });
+          chapters.forEach(function (btn) { btn.parentNode.classList.toggle('is-current', btn === on); });
+        });
+      }
       draw();
     });
   });

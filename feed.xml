@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dcmsx="https://github.com/Frazilpop/DCMSX">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:dcmsx="https://github.com/Frazilpop/DCMSX">
 <channel>
   <title>Your Cover's Blown</title>
   <link>https://yourcoversblown.com/</link>
@@ -20,10 +20,11 @@
     <description>An ex-FBI hostage negotiator teaches you how to get your way at work, at home and at the car dealership. This week we're learning to negotiate like a hostage.</description>
     <content:encoded><![CDATA[<p>Chris Voss was an FBI negotiator and his book contains many practical examples of applying the techniques he learned in everyday life. The downward inflecting DJ voice, mirroring and many other techniques will be studied. All this and more in the first episode of Your Cover's Blown, a reverse yes-ladder of a podcast that will have you uncontrollably exclaiming &quot;That's right!&quot; before the hour is through.</p>
 <p>This week's book: <em>Never Split the Difference</em> by Chris Voss (2016)</p>]]></content:encoded>
-    <enclosure url="https://yourcoversblown.com/media/episodes/ycb-001.mp3" length="46270437" type="audio/mpeg"/>
+    <enclosure url="https://yourcoversblown.com/media/episodes/ycb-001.mp3" length="46270816" type="audio/mpeg"/>
     <itunes:episode>1</itunes:episode>
     <itunes:duration>48:12</itunes:duration>
     <itunes:image href="https://yourcoversblown.com/media/site/brand/episode-cover.jpg"/>
+    <podcast:chapters url="https://yourcoversblown.com/media/episodes/ycb-001.chapters.json" type="application/json+chapters"/>
     <itunes:explicit>true</itunes:explicit>
     <dcmsx:book>Never Split the Difference</dcmsx:book>
     <dcmsx:bookAuthor>Chris Voss</dcmsx:bookAuthor>

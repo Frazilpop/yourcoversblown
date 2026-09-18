@@ -1,0 +1,25 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Introduction to KC"
+    },
+    {
+      "startTime": 431.4,
+      "title": "Finding Bourdain's Books and Shows"
+    },
+    {
+      "startTime": 987.1,
+      "title": "Kitchen Quiz!"
+    },
+    {
+      "startTime": 1876.7,
+      "title": "Working in Restaurants"
+    },
+    {
+      "startTime": 2048.9,
+      "title": "Testing the rules. Fish on a Monday?"
+    }
+  ]
+}

@@ -13,6 +13,23 @@
   <itunes:category text="Arts"><itunes:category text="Books"/></itunes:category>
   <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
   <item>
+    <title>Kitchen Confidential – Anthony Bourdain</title>
+    <link>https://yourcoversblown.com/episodes/kitchen-confidential-anthony-bourdain/</link>
+    <guid isPermaLink="true">https://yourcoversblown.com/episodes/kitchen-confidential-anthony-bourdain/</guid>
+    <pubDate>Fri, 18 Sep 2026 09:00:00 +0100</pubDate>
+    <description>Secrets from the kitchen exposed! This week we're ordering fish on a Monday.</description>
+    <content:encoded><![CDATA[<p>Anthony Bourdain was a famous chef and travel writer. We're returning to where it all began with his tell all memoir Kitchen Confidential. Welcome to Your Cover's Blown, the podcast where we order fish on Mondays.</p>
+<p>This week's book: <em>Kitchen Confidential</em> by Anthony Bourdain (2000)</p>]]></content:encoded>
+    <enclosure url="https://yourcoversblown.com/media/episodes/ycb-002.mp3" length="39955393" type="audio/mpeg"/>
+    <itunes:episode>2</itunes:episode>
+    <itunes:duration>41:37</itunes:duration>
+    <itunes:image href="https://yourcoversblown.com/media/site/brand/episode-cover.jpg"/>
+    <podcast:chapters url="https://yourcoversblown.com/media/episodes/ycb-002.chapters.json" type="application/json+chapters"/>
+    <itunes:explicit>true</itunes:explicit>
+    <dcmsx:book>Kitchen Confidential</dcmsx:book>
+    <dcmsx:bookAuthor>Anthony Bourdain</dcmsx:bookAuthor>
+  </item>
+  <item>
     <title>Never Split the Difference – Chris Voss</title>
     <link>https://yourcoversblown.com/episodes/never-split-the-difference/</link>
     <guid isPermaLink="true">https://yourcoversblown.com/episodes/never-split-the-difference/</guid>

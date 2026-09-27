@@ -23,7 +23,7 @@
     <enclosure url="https://yourcoversblown.com/media/episodes/ycb-002.mp3" length="39955393" type="audio/mpeg"/>
     <itunes:episode>2</itunes:episode>
     <itunes:duration>41:37</itunes:duration>
-    <itunes:image href="https://yourcoversblown.com/media/site/brand/episode-cover.jpg"/>
+    <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
     <podcast:chapters url="https://yourcoversblown.com/media/episodes/ycb-002.chapters.json" type="application/json+chapters"/>
     <itunes:explicit>true</itunes:explicit>
     <dcmsx:book>Kitchen Confidential</dcmsx:book>
@@ -40,7 +40,7 @@
     <enclosure url="https://yourcoversblown.com/media/episodes/ycb-001.mp3" length="46270816" type="audio/mpeg"/>
     <itunes:episode>1</itunes:episode>
     <itunes:duration>48:12</itunes:duration>
-    <itunes:image href="https://yourcoversblown.com/media/site/brand/episode-cover.jpg"/>
+    <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
     <podcast:chapters url="https://yourcoversblown.com/media/episodes/ycb-001.chapters.json" type="application/json+chapters"/>
     <itunes:explicit>true</itunes:explicit>
     <dcmsx:book>Never Split the Difference</dcmsx:book>

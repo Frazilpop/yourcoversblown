@@ -1,16 +1,17 @@
-/* Your Cover's Blown — site styles. Riso-print look built around the wordmark:
-   warm paper, ink text, and the two riso inks (yellow + purple) used the way a
-   risograph would — solid offset shadows, marker-bar rules, flat colour fills.
-   Display type is Baloo 2 (the wordmark's chunky rounded cousin); body is
-   Nunito, same as the sister sites. */
+/* Your Cover's Blown — site styles. The show's video look brought to the
+   page: a black screen, the grey tape-worn wordmark flickering at the top, the
+   readers in white line under it. No colour anywhere — white and grey on
+   black — so what can be pressed is drawn in white and everything else sits
+   back. Display type is Baloo 2 (the wordmark's chunky rounded cousin); body
+   is Nunito, same as the sister sites. */
 
 /* ---------- global ---------- */
 * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-html { margin: 0; padding: 0; overflow-x: hidden; }
+html { margin: 0; padding: 0; overflow-x: hidden; background: var(--bg); color-scheme: dark; }
 body {
   margin: 0;
   overflow-x: hidden;
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--fs-body);
@@ -23,6 +24,7 @@ main { flex: 1; width: 100%; }
 img { max-width: 100%; height: auto; }
 a { color: inherit; }
 h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); font-weight: 700; line-height: 1.15; }
+::selection { background: var(--ink); color: var(--bg); }
 
 /* per-page fonts (Page settings → Font), scoped to the page content — the
    header and footer keep the site chrome fonts */
@@ -44,26 +46,34 @@ body.font-mono main .block-text {
   font-family: 'Nunito', Arial, Helvetica, sans-serif;
 }
 
-/* content links: purple, thick underline — the site's signature link */
-.block-text a, .post-body a, .host-card a, .episode-all a, .post-footer-nav a,
+/* content links: white on a grey underline that lights up under the pointer */
+.block-text a, .post-body a, .episode-all a, .post-footer-nav a,
 .listing-pages a, .ycb-listen-compact a {
-  color: var(--purple-text); text-decoration: underline;
+  color: var(--ink); text-decoration: underline;
   text-decoration-thickness: 2px; text-underline-offset: 3px;
-  text-decoration-color: var(--yellow);
+  text-decoration-color: var(--ink-soft);
 }
-.block-text a:hover, .post-body a:hover, .host-card a:hover, .episode-all a:hover,
+.block-text a:hover, .post-body a:hover, .episode-all a:hover,
 .post-footer-nav a:hover, .listing-pages a:hover, .ycb-listen-compact a:hover {
-  color: var(--purple-deep); text-decoration-color: var(--purple);
+  color: var(--accent); text-decoration-color: var(--accent);
 }
 
 /* ---------- header ---------- */
-/* the whole top section sits on lighter paper, with the wordmark under the
-   nav, 20px of air beneath it and the full-width rule closing the band */
-.ycb-header { background: var(--paper-light); border-bottom: 1px dotted var(--rule); }
-.ycb-header-logo { display: block; text-align: center; padding: 10px 16px 20px; }
+/* the nav row, then the wordmark under it — straight on the black, no band
+   and no rule: the page starts where the mark ends */
+.ycb-header { background: var(--bg); }
+.ycb-header-logo { display: block; text-align: center; padding: 22px 16px 14px; }
 .ycb-header-logo img { max-width: min(var(--logo-maxw, 780px), 100%); display: inline-block; }
+/* the tape-worn wordmark: the picture holds the box, and site.js lays a canvas
+   over it that redraws the mark with fresh grain and a faint flicker each
+   frame. Until then — and with scripts off or reduce-motion on — the still
+   picture is the mark. */
+.ycb-vhs { position: relative; display: inline-block; vertical-align: top; max-width: min(var(--logo-maxw, 780px), 100%); }
+.ycb-header-logo .ycb-vhs img { display: block; max-width: 100%; }
+.ycb-vhs canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ycb-vhs.is-live img { visibility: hidden; }
 .ycb-strip {
-  background: var(--yellow); color: var(--ink);
+  background: var(--ink); color: var(--bg);
   text-align: center; padding: 7px 16px;
   font-weight: 800; font-size: 14px; letter-spacing: 0.4px;
 }
@@ -75,15 +85,16 @@ body.font-mono main .block-text {
 }
 .ycb-nav a {
   font-family: var(--font-display); font-weight: 700; font-size: 18px;
-  color: var(--ink); text-decoration: none;
-  padding: 2px 2px 4px; border-bottom: 3px solid transparent;
+  color: var(--ink-soft); text-decoration: none;
+  padding: 2px 2px 4px; border-bottom: 2px solid transparent;
+  transition: color 0.12s ease;
 }
-.ycb-nav a:hover { border-bottom-color: var(--purple); }
-.ycb-nav a[aria-current="page"] { border-bottom-color: var(--yellow); }
+.ycb-nav a:hover { color: var(--ink); }
+.ycb-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--ink); }
 
 /* ---------- newsletter (signup box above the footer, sister-site shape) ---------- */
 .ycb-newsletter { text-align: center; padding: 40px 20px; width: 100%; max-width: 950px; margin: 0 auto; }
-.outline-sign-up-box { border: 2px solid var(--ink); border-radius: 25px; padding: 30px 45px 5px; }
+.outline-sign-up-box { border: 1px solid var(--rule); border-radius: 25px; padding: 30px 45px 5px; }
 @media (min-width: 860px) { .outline-sign-up-box { padding-left: 160px; padding-right: 160px; } }
 @media (max-width: 767px) { .outline-sign-up-box { padding-left: 30px; padding-right: 30px; } .ycb-newsletter { padding-left: 15px; padding-right: 15px; } }
 /* the sister sites' Oswald lockup — same heading on all three signup boxes */
@@ -93,20 +104,24 @@ body.font-mono main .block-text {
 .sign-up-box {
   display: inline-block; padding: 0 12px; margin-bottom: 17px; vertical-align: middle;
   border-radius: 4px; border: 1px solid var(--rule); min-width: 480px; max-width: 635px; min-height: 38px;
-  color: var(--ink); background: #fff; font: 16px var(--font-body);
+  color: var(--ink); background: var(--bg-raised); font: 16px var(--font-body);
 }
+.sign-up-box::placeholder { color: var(--ink-soft); opacity: 1; }
+.sign-up-box:focus { outline: none; border-color: var(--ink); }
 @media (max-width: 767px) { .sign-up-box { min-width: 100%; max-width: 100%; } }
 .mc-button {
   margin: 0 auto 25px; display: block; padding: 8px 10px; font-size: 16px;
-  font-family: var(--font-body); font-weight: 700; background: var(--mc, #7a68a0); color: #fff;
+  font-family: var(--font-body); font-weight: 800; background: var(--mc, var(--accent)); color: var(--on-accent);
   width: 480px; max-width: 100%; border: none; border-radius: 4px; cursor: pointer;
 }
-.mc-button:hover { background: color-mix(in srgb, var(--mc, #7a68a0) 71%, black); }
+/* a button colour chosen in the Newsletter block carries white words */
+.ycb-newsletter[style*="--mc"] .mc-button { color: #fff; }
+.mc-button:hover { background: color-mix(in srgb, var(--mc, var(--accent)) 80%, black); }
 .mc-button:disabled { opacity: .6; cursor: default; }
 .nl-hp { position: absolute; left: -5000px; }
 .nl-msg { margin: 0 0 25px; font-weight: 700; color: var(--ink); }
 .nl-msg[hidden] { display: none; }
-.nl-msg-error { color: #b04a4a; }
+.nl-msg-error { color: #f08a8a; }
 /* interaction-only Turnstile is invisible but still reserves ~72px once its
    script renders — keep the box collapsed until Cloudflare actually needs to
    show a challenge (site.js adds .cf-turnstile-show via its callback) */
@@ -114,8 +129,10 @@ body.font-mono main .block-text {
 .cf-turnstile-show { height: auto; overflow: visible; margin-bottom: 17px; }
 
 /* ---------- footer ---------- */
+/* the page is already black, so the footer is marked off by a hairline */
 .ycb-footer {
   background: var(--footer-bg); color: var(--footer-text); margin-top: auto;
+  border-top: 1px solid var(--hairline);
   font-size: 14px; line-height: 1.6;
 }
 .ycb-footer-row {
@@ -138,21 +155,19 @@ body.font-mono main .block-text {
 .ycb-socials a:hover img { opacity: 1; filter: brightness(1.35); }
 .ycb-footer-links { display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .ycb-footer-links a { color: var(--footer-link); text-decoration: none; padding: 8px 0; }
-.ycb-footer-links a:hover { color: var(--footer-link-hover); text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 2px; }
+.ycb-footer-links a:hover { color: var(--footer-link-hover); text-decoration: underline; text-decoration-color: var(--ink-soft); text-decoration-thickness: 2px; }
 @media (max-width: 767px) {
   .ycb-footer-row { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .ycb-copy, .ycb-byline, .ycb-footer-right { grid-column: 1; justify-self: center; }
 }
 
 /* ---------- bands (full-bleed section backgrounds) ---------- */
+/* one band: the raised grey, edge to edge. The riso site's three (yellow
+   wash, purple wash, ink) all read as it now, so a page that still names one
+   keeps a band rather than losing it. */
 .band { width: 100%; }
 .band-inner { max-width: none; margin: 0; padding: 0; display: flow-root; }
-.band--wash-yellow { background: var(--wash-yellow); }
-.band--wash-purple { background: var(--wash-purple); }
-.band--ink { background: var(--ink); color: var(--paper); }
-.band--ink .block-section-title h2, .band--ink .block-section-title h3,
-.band--ink .block-page-title h1, .band--ink .block-sub-heading { color: var(--paper); }
-.band--ink .block-text a, .band--ink .post-body a { color: var(--wash-purple); }
+.band--panel, .band--wash-yellow, .band--wash-purple, .band--ink { background: var(--bg-raised); }
 
 /* ---------- shared block bits ---------- */
 /* Every block renders inside a .blk .blk--<type> wrapper which owns the
@@ -208,7 +223,7 @@ body.font-mono main .block-text {
   padding-bottom: 6px;
 }
 .block-page-title:has(.title-rule) h1 {
-  text-decoration: underline dotted; text-decoration-color: var(--rule);
+  text-decoration: underline dotted; text-decoration-color: var(--ink-soft);
   text-decoration-thickness: 2px; text-decoration-skip-ink: none;
   text-underline-offset: var(--page-title-pad-bottom, 18px);
   padding-bottom: calc(var(--page-title-pad-bottom, 18px) + 9px);
@@ -219,7 +234,7 @@ body.font-mono main .block-text {
 .block-section-title h3 { font-size: 20px; }
 .block-section-title:has(.section-rule) h2,
 .block-section-title:has(.section-rule) h3 {
-  text-decoration: underline dotted; text-decoration-color: var(--rule);
+  text-decoration: underline dotted; text-decoration-color: var(--ink-soft);
   text-decoration-thickness: 2px; text-decoration-skip-ink: none;
   text-underline-offset: var(--section-title-rule-gap, 10px);
   padding-bottom: calc(var(--section-title-rule-gap, 10px) + 4px);
@@ -250,17 +265,16 @@ body.font-mono main .block-text {
 .block-feature-list .bullet { margin: 0; padding-left: 24px; }
 .block-feature-list li { margin-bottom: var(--feature-list-item-gap, 12px); }
 .block-feature-list li:last-child { margin-bottom: 0; }
-.block-feature-list li::marker { color: var(--purple); }
+.block-feature-list li::marker { color: var(--ink-soft); }
 
 /* ---------- media blocks ---------- */
 .block-feature-image { text-align: center; padding: 0 16px; }
 .block-feature-image img {
   max-width: min(var(--img-maxw, 700px), 100%);
-  border: var(--border); background: #fff;
-  box-shadow: var(--shadow-yellow);
+  border: var(--border); background: var(--bg-raised);
 }
-/* transparent artwork sits straight on the paper — no print frame */
-.block-feature-image img.no-frame { border: 0; background: transparent; box-shadow: none; }
+/* transparent artwork sits straight on the black — no frame */
+.block-feature-image img.no-frame { border: 0; background: transparent; }
 [data-lightbox] { cursor: zoom-in; }
 
 .block-video { max-width: min(var(--img-maxw, 760px), 100%); margin: 0 auto; padding: 0 16px; }
@@ -280,7 +294,7 @@ body.font-mono main .block-text {
   max-width: var(--maxw-feature); margin: 0 auto; padding: 0 16px;
 }
 .block-gallery figure { margin: var(--gallery-gap, 10px); }
-.block-gallery .gallery-img { display: block; width: 100%; border: var(--border); background: #fff; }
+.block-gallery .gallery-img { display: block; width: 100%; border: var(--border); background: var(--bg-raised); }
 .block-gallery .grid-name { text-align: center; padding-top: var(--gallery-caption-gap, 8px); color: var(--ink-soft); font-size: 15px; }
 @media (max-width: 767px) {
   .block-gallery { grid-template-columns: 1fr; }
@@ -288,6 +302,7 @@ body.font-mono main .block-text {
 }
 
 /* ---------- listen buttons ---------- */
+/* white outlines on the black; the one under the pointer fills in */
 .block-listen { text-align: center; padding: 0 16px; }
 .listen-title, .listen-soon-note {
   margin: 0 0 16px; font-size: 13px; font-weight: 800;
@@ -297,15 +312,15 @@ body.font-mono main .block-text {
 .listen-row { display: flex; flex-wrap: wrap; justify-content: center; }
 .listen-pill {
   display: inline-block; margin: var(--listen-button-gap, 9px);
-  padding: 9px 24px 11px; border: var(--border); border-radius: 999px;
-  background: var(--paper); color: var(--ink);
+  padding: 9px 24px 11px; border: 1.5px solid var(--ink); border-radius: 999px;
+  background: transparent; color: var(--ink);
   font-family: var(--font-display); font-weight: 700; font-size: 17px;
-  text-decoration: none; box-shadow: var(--shadow-yellow);
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  text-decoration: none;
+  transition: background-color 0.12s ease, color 0.12s ease;
 }
-a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--purple); }
+a.listen-pill:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .listen-pill.is-soon {
-  border-style: dashed; box-shadow: none; color: var(--ink-soft); background: transparent;
+  border-style: dashed; border-color: var(--rule); color: var(--ink-soft);
 }
 
 /* the small links row under every episode player */
@@ -313,19 +328,16 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .ycb-listen-compact .dot { margin: 0 8px; }
 
 /* ---------- audio player ---------- */
-/* The player is the one place the riso costume comes off: the site's ink
-   outline and offset shadow made it read as a cartoon box, and a player is
-   an instrument, not a poster. So it sits on the deep paper behind a single
-   hairline, and the controls are drawn plainly — a thin filled track with a
-   small round thumb, times either side, and a skip / play / skip cluster
-   with no boxes round it. --pos and --buf are set by site.js as the audio
-   plays: played fill and buffered wash. */
+/* An instrument, drawn plainly: a raised grey panel behind a single hairline,
+   a thin filled track with a small round thumb, times either side, and a
+   skip / play / skip cluster with no boxes round it. --pos and --buf are set
+   by site.js as the audio plays: played fill and buffered wash. */
 .block-audio { max-width: 660px; margin: 0 auto; padding: 0 16px; }
 .ycb-player {
   --pos: 0%; --buf: 0%;
   display: flex; align-items: center; gap: 18px;
-  border: 1px solid rgba(36, 29, 18, 0.13); border-radius: 12px;
-  background: var(--paper-deep);
+  border: 1px solid var(--hairline); border-radius: 12px;
+  background: var(--bg-raised);
   padding: 16px 20px 16px 16px;
 }
 .ycb-player > audio { display: none; }
@@ -333,11 +345,11 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .pl-controls { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
 .pl-play {
   flex-shrink: 0; width: 50px; height: 50px; border-radius: 50%;
-  border: 0; background: var(--purple-text); cursor: pointer; color: #fff;
+  border: 0; background: var(--accent); cursor: pointer; color: var(--on-accent);
   display: flex; align-items: center; justify-content: center;
   transition: background-color 0.15s ease, transform 0.12s ease;
 }
-.pl-play:hover { background: var(--purple-deep); }
+.pl-play:hover { background: var(--accent-dim); }
 .pl-play:active { transform: scale(0.96); }
 .pl-play svg { width: 22px; height: 22px; fill: currentColor; }
 .pl-icon-play { transform: translateX(1px); }
@@ -349,10 +361,10 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
   border: 0; background: transparent; color: var(--ink-soft); cursor: pointer; padding: 0;
   transition: background-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
 }
-.pl-skip:hover { background: rgba(36, 29, 18, 0.07); color: var(--ink); }
+.pl-skip:hover { background: rgba(255, 255, 255, 0.09); color: var(--ink); }
 .pl-skip:active { transform: scale(0.92); }
-/* the glyph carries a heavy stroke in the markup for the riso look — inside
-   the player it is drawn light, to sit beside the plain play disc */
+/* the glyph carries a heavy stroke in the markup — inside the player it is
+   drawn light, to sit beside the plain play disc */
 .pl-skip svg { width: 24px; height: 24px; display: block; margin: 0 auto; stroke-width: 1.9; }
 .pl-skip--fwd svg { transform: scaleX(-1); }
 .pl-skip span {
@@ -365,15 +377,16 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .pl-bar { display: flex; align-items: center; gap: 12px; }
 /* the chapter list under the player: plain rows, the time in the player's
    figures, the current one lit while it plays */
-.ep-chapters { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--rule, rgba(0,0,0,.12)); }
-.ep-chapters li { border-bottom: 1px solid var(--rule, rgba(0,0,0,.12)); }
+.ep-chapters { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--hairline); }
+.ep-chapters li { border-bottom: 1px solid var(--hairline); }
 .ep-chapters button { display: flex; gap: 14px; align-items: baseline; width: 100%; padding: 9px 4px; margin: 0;
-  background: none; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; border-radius: 6px; }
-.ep-chapters button:hover { background: rgba(0,0,0,.05); }
+  background: none; border: 0; font: inherit; color: var(--ink-soft); text-align: left; cursor: pointer; border-radius: 6px; }
+.ep-chapters button:hover { background: rgba(255, 255, 255, 0.07); color: var(--ink); }
 .ep-chapters .ch-time { flex: none; min-width: 44px; font-size: 13px; font-weight: 800; letter-spacing: .6px;
-  font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+  font-variant-numeric: tabular-nums; }
 .ep-chapters .ch-title { font-size: 15px; }
-.ep-chapters li.is-current .ch-time, .ep-chapters li.is-current .ch-title { color: var(--accent, inherit); }
+.ep-chapters li.is-current button { color: var(--accent); }
+.ep-chapters li.is-current .ch-title { font-weight: 800; }
 .pl-time {
   flex-shrink: 0; min-width: 3.2em; font-size: 13px; font-weight: 800;
   color: var(--ink-soft); font-variant-numeric: tabular-nums; letter-spacing: 0.2px;
@@ -391,39 +404,39 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .pl-seek::-webkit-slider-runnable-track {
   height: 5px; border-radius: 999px;
   background: linear-gradient(to right,
-    var(--purple-text) 0 var(--pos),
-    rgba(36, 29, 18, 0.24) var(--pos) var(--buf),
-    rgba(36, 29, 18, 0.12) var(--buf) 100%);
+    var(--accent) 0 var(--pos),
+    rgba(255, 255, 255, 0.36) var(--pos) var(--buf),
+    rgba(255, 255, 255, 0.16) var(--buf) 100%);
   transition: height 0.12s ease;
 }
 .pl-seek::-moz-range-track {
   height: 5px; border-radius: 999px;
   background: linear-gradient(to right,
-    var(--purple-text) 0 var(--pos),
-    rgba(36, 29, 18, 0.24) var(--pos) var(--buf),
-    rgba(36, 29, 18, 0.12) var(--buf) 100%);
+    var(--accent) 0 var(--pos),
+    rgba(255, 255, 255, 0.36) var(--pos) var(--buf),
+    rgba(255, 255, 255, 0.16) var(--buf) 100%);
 }
 .pl-seek::-webkit-slider-thumb {
   -webkit-appearance: none; width: 12px; height: 12px; margin-top: -3px; border-radius: 50%;
-  background: var(--purple-text); border: 0;
+  background: var(--accent); border: 0;
   transition: transform 0.12s ease;
 }
 .pl-seek::-moz-range-thumb {
   width: 12px; height: 12px; border-radius: 50%;
-  background: var(--purple-text); border: 0;
+  background: var(--accent); border: 0;
   transition: transform 0.12s ease;
 }
 .pl-seek:hover::-webkit-slider-thumb, .pl-seek:active::-webkit-slider-thumb { transform: scale(1.25); }
 .pl-seek:hover::-moz-range-thumb, .pl-seek:active::-moz-range-thumb { transform: scale(1.25); }
-.pl-seek:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 5px rgba(122, 104, 160, 0.35); }
-.pl-seek:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 5px rgba(122, 104, 160, 0.35); }
+.pl-seek:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.3); }
+.pl-seek:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.3); }
 .pl-seek:disabled { cursor: default; opacity: 0.5; }
 .pl-seek:disabled::-webkit-slider-thumb { transform: none; }
 .pl-seek:disabled::-moz-range-thumb { transform: none; }
 
 /* ---------- episode rows (the listing + episode-list block) ---------- */
-/* Each episode is a flat riso card on the deeper paper — no outline, no
-   offset shadow, so it stops reading as one enormous button next to the real
+/* Each episode is a flat card a step off the black behind a hairline — no
+   heavy outline, so it does not read as one enormous button next to the real
    ones. The coming-soon card below shares the same flat treatment. */
 .block-episode-list { max-width: var(--maxw-episodes); margin: 0 auto; padding: 0 16px; }
 .block-episode-list .block-section-title { padding: 0; margin-bottom: 26px; }
@@ -434,20 +447,21 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .ep-card {
   position: relative;
   padding: 24px 30px 26px;
+  border: 1px solid var(--hairline);
   border-radius: var(--episode-list-card-radius, 14px);
-  background: var(--paper-deep);
+  background: var(--bg-raised);
 }
 
 .ep-info { flex: 1; min-width: 0; }
 .ep-kicker {
   margin: 0 0 2px; font-size: 12px; font-weight: 800;
-  letter-spacing: 1.4px; text-transform: uppercase; color: var(--purple-text);
+  letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink-soft);
 }
 .ep-title { font-size: 24px; margin-bottom: 4px; }
 .ep-title a { color: var(--ink); text-decoration: none; }
-.ep-title a:hover { color: var(--purple-text); }
+.ep-title a:hover { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .ep-book { margin: 0 0 6px; font-size: 16px; }
-.ep-book cite { font-style: italic; font-weight: 800; color: var(--brown); }
+.ep-book cite { font-style: italic; font-weight: 800; color: var(--ink); }
 .ep-desc { margin: 0 0 8px; font-size: 16px; }
 .ep-meta { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); }
 
@@ -459,11 +473,11 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
   display: inline-flex; align-items: center; gap: 8px;
   padding: 7px 18px 8px 14px; cursor: pointer;
   border: 0; border-radius: 999px;
-  background: var(--purple-text); color: #fff;
+  background: var(--accent); color: var(--on-accent);
   font-family: var(--font-display); font-weight: 700; font-size: 16px;
   transition: background-color 0.15s ease, transform 0.12s ease;
 }
-.ep-listen:hover { background: var(--purple-deep); }
+.ep-listen:hover { background: var(--accent-dim); }
 .ep-listen:active { transform: scale(0.98); }
 .ep-listen svg { width: 18px; height: 18px; fill: currentColor; }
 .ep-listen .pl-icon-pause, .ep-listen .ep-listen-pause { display: none; }
@@ -477,19 +491,20 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 
 .ep-notes {
   font-family: var(--font-display); font-weight: 700; font-size: 16px;
-  color: var(--purple-text); text-decoration: underline;
+  color: var(--ink); text-decoration: underline;
   text-decoration-thickness: 2px; text-underline-offset: 3px;
-  text-decoration-color: var(--yellow);
+  text-decoration-color: var(--ink-soft);
 }
-.ep-notes:hover { color: var(--purple-deep); text-decoration-color: var(--purple); }
+.ep-notes:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 .episode-all { text-align: center; margin: 26px 0 0; font-family: var(--font-display); font-weight: 700; font-size: 17px; }
 
-/* the coming-soon card (no published episodes yet) — flat, no outline */
+/* the coming-soon card (no published episodes yet) — the same flat card */
 .episode-empty {
   max-width: 600px; margin: 0 auto; padding: 22px 30px;
+  border: 1px solid var(--hairline);
   border-radius: var(--episode-list-card-radius, 14px);
-  background: var(--paper-deep);
+  background: var(--bg-raised);
   text-align: center;
 }
 .episode-empty p { margin: 0; font-size: 17px; }
@@ -508,7 +523,7 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 .episode-header .ep-meta { margin-bottom: 0; }
 
 .post-body .post-img { text-align: center; margin: 0 0 var(--text-para-gap, 22px); }
-.post-body .feature-img { border: var(--border); background: #fff; box-shadow: var(--shadow-yellow); }
+.post-body .feature-img { border: var(--border); background: var(--bg-raised); }
 .post-body .img-large { max-width: min(700px, 100%); }
 .post-body .img-medium { max-width: min(520px, 100%); }
 .post-body .img-small { max-width: min(340px, 100%); }
@@ -518,10 +533,11 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 }
 
 /* ---------- hosts ---------- */
-/* Riso-print polaroids: each host is a small white card taped to the paper at
-   a slight angle, the photo overprinted as a duotone in one riso ink (purple
-   or yellow, alternating) with the offset shadow misregistered in the OTHER
-   ink. Hover blows the cover: the print lifts and the real photo shows. */
+/* Polaroids drawn in line, like the readers: each host is the outline of a
+   print taped to the black at a slight angle, every other one tilted the
+   other way and dropped a little. Words in white under the photo; the photo
+   is grey; hover blows the cover — the print straightens, lifts and the real
+   photo shows. */
 .block-hosts {
   display: flex; align-items: center; justify-content: center;
   gap: var(--hosts-gap, 48px);
@@ -530,7 +546,7 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 }
 .hosts-img {
   width: 340px; flex-shrink: 0;
-  border: var(--border); background: #fff; box-shadow: var(--shadow-yellow);
+  border: var(--border); background: var(--bg-raised);
 }
 .hosts-cards {
   display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
@@ -538,57 +554,44 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 }
 .host-card {
   position: relative; width: 240px; text-align: center;
-  background: #fff; border: 1px solid var(--ink); padding: 12px 12px 16px;
+  background: var(--bg); border: var(--print-line); padding: 12px 12px 16px;
   transform: rotate(-1deg);
-  transition: transform .25s ease, box-shadow .25s ease;
+  transition: transform .25s ease;
 }
-.host-card.ink-purple { box-shadow: var(--shadow-yellow); }
-.host-card.ink-yellow { box-shadow: var(--shadow-purple); transform: rotate(1deg) translateY(18px); }
+.host-card:nth-child(even) { transform: rotate(1deg) translateY(18px); }
 /* the strip of tape holding each print to the page */
 .host-card::before {
-  content: ''; position: absolute; top: -13px; left: 50%; width: 92px; height: 26px;
+  content: ''; position: absolute; top: -14px; left: 50%; width: 92px; height: 26px;
   transform: translateX(-50%) rotate(-3deg);
-  background: rgba(233, 196, 20, .5);
-  border-left: 2px dashed rgba(36, 29, 18, .25);
-  border-right: 2px dashed rgba(36, 29, 18, .25);
+  background: rgba(255, 255, 255, .22);
+  border-left: 2px dashed rgba(255, 255, 255, .45);
+  border-right: 2px dashed rgba(255, 255, 255, .45);
   z-index: 2;
 }
-.host-card.ink-yellow::before { transform: translateX(-50%) rotate(2.5deg); background: rgba(122, 104, 160, .38); }
+.host-card:nth-child(even)::before { transform: translateX(-50%) rotate(2.5deg); }
 .host-card:hover { transform: rotate(0) scale(1.04); z-index: 3; }
-.host-card.ink-purple:hover { box-shadow: 6px 6px 0 var(--yellow); }
-.host-card.ink-yellow:hover { box-shadow: 6px 6px 0 var(--purple); }
-/* the duotone print: grayscale photo multiplied onto a solid ink ground */
-.host-photo-wrap {
-  position: relative; overflow: hidden; isolation: isolate;
-  border: 1px solid var(--ink); background: var(--purple);
-}
-.ink-yellow .host-photo-wrap { background: var(--yellow); }
+.host-photo-wrap { position: relative; overflow: hidden; border: var(--print-line); background: #000; }
 .host-photo {
   display: block; width: 100%; aspect-ratio: 1; object-fit: cover;
-  filter: grayscale(1) contrast(1.08) brightness(1.05);
-  mix-blend-mode: multiply;
+  filter: grayscale(1) contrast(1.08);
   transition: filter .3s ease;
 }
-/* purple ink is darker than yellow — lift the print so it doesn't go muddy */
-.ink-purple .host-photo { filter: grayscale(1) contrast(1) brightness(1.4); }
-.host-card:hover .host-photo { filter: none; mix-blend-mode: normal; }
-.host-card h3 {
-  font-size: 21px; margin: 12px 0 2px;
-  text-shadow: 2px 2px 0 var(--wash-yellow);
-}
+.host-card:hover .host-photo { filter: none; }
+.host-card h3 { font-size: 21px; margin: 12px 0 2px; color: var(--ink); }
 .host-card p { margin: 0; font-size: 15px; color: var(--ink-soft); }
 .host-card p + p { margin-top: 6px; }
+.host-card a { color: var(--ink); text-decoration-color: var(--ink-soft); }
 @media (max-width: 767px) {
   .block-hosts { flex-direction: column; }
   .hosts-img { width: min(300px, 100%); }
-  .host-card.ink-yellow { transform: rotate(1deg); }
+  .host-card:nth-child(even) { transform: rotate(1deg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .host-card, .host-photo { transition: none; }
 }
 
-/* the readers figure: five layers stacked on one box, the eyes swapped by
-   site.js on a blink; the whole figure sways from the bottom centre */
+/* the readers figure: five layers of white line stacked on one box, the eyes
+   swapped by site.js on a blink; the whole figure sways from the bottom centre */
 .block-readers { text-align: center; padding: 0 16px; }
 .block-readers .readers {
   position: relative; display: inline-block; width: min(var(--img-maxw, 440px), 100%);
@@ -602,12 +605,12 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
 
 /* ---------- lightbox ---------- */
 .ycb-lightbox { border: 0; padding: 0; background: transparent; max-width: 92vw; max-height: 92vh; }
-.ycb-lightbox::backdrop { background: rgba(36, 29, 18, 0.88); }
-.ycb-lightbox img { display: block; max-width: 92vw; max-height: 92vh; border: var(--border); background: #fff; }
+.ycb-lightbox::backdrop { background: rgba(0, 0, 0, 0.9); }
+.ycb-lightbox img { display: block; max-width: 92vw; max-height: 92vh; border: var(--border); background: var(--bg-raised); }
 .ycb-lightbox .lightbox-close {
   position: fixed; top: 10px; right: 14px; z-index: 1;
   width: 44px; height: 44px; border-radius: 50%;
-  border: var(--border); background: var(--yellow); color: var(--ink);
+  border: 0; background: var(--accent); color: var(--on-accent);
   font-size: 26px; line-height: 1; cursor: pointer;
 }
 
@@ -620,6 +623,7 @@ a.listen-pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 va
   .block-episode-list { padding-left: 28px; padding-right: 28px; }
   .ycb-nav { gap: 2px 22px; padding-top: 16px; }
   .ycb-nav a { font-size: 16px; }
+  .ycb-header-logo { padding: 16px 22px 10px; }
   .episode-header h1 { font-size: 28px; }
   /* phones: the bar takes the full width, the skip / play / skip cluster
      sits centred beneath it */

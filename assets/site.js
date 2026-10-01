@@ -250,6 +250,70 @@
     });
   });
 
+  // ---------- the wordmark: tape grain and flicker ----------
+  // The look the videos give it (drawLogo in admin/visualiser/index.html):
+  // fresh grain over the letters every frame — a multiply pass and a screen
+  // pass, then the mark's own shape put back so the noise never spills onto
+  // the black round it — and a faint flicker in the whole mark's brightness.
+  // The picture stays in the page, holding the box; the canvas is laid over
+  // it and only runs while the mark is on screen. Reduce-motion, or a picture
+  // that never loads, leaves the still mark.
+  var VHS = { grain: 0.12, flicker: 0.06, fps: 30, tile: 256 };
+  var vhsTiles = [];
+  function vhsTile() {
+    if (!vhsTiles.length) for (var i = 0; i < 3; i++) {
+      var c = document.createElement('canvas'); c.width = c.height = VHS.tile;
+      var g = c.getContext('2d'), d = g.createImageData(VHS.tile, VHS.tile);
+      for (var p = 0; p < d.data.length; p += 4) { d.data[p] = d.data[p + 1] = d.data[p + 2] = Math.random() * 255; d.data[p + 3] = 255; }
+      g.putImageData(d, 0, 0); vhsTiles.push(c);
+    }
+    return vhsTiles[Math.floor(Math.random() * vhsTiles.length)];
+  }
+  document.querySelectorAll('.ycb-vhs[data-vhs]').forEach(function (box) {
+    once(box, function () {
+      var img = box.querySelector('img');
+      if (rdStill || !img) return;
+      var cv = document.createElement('canvas'), g = cv.getContext('2d');
+      cv.setAttribute('aria-hidden', 'true');
+      var seen = true, last = 0;
+      if (window.IntersectionObserver) {
+        new IntersectionObserver(function (es) { seen = es[es.length - 1].isIntersecting; }).observe(box);
+      }
+      function frame(now) {
+        if (!box.isConnected) return;   // the preview replaced the page under us
+        requestAnimationFrame(frame);
+        if (!seen || now - last < 1000 / VHS.fps - 2) return;
+        last = now;
+        // grain is a CSS pixel across whatever the screen's density, so it
+        // reads the same on a phone as on a desk
+        var dpr = Math.min(2, window.devicePixelRatio || 1);
+        var w = Math.round(box.clientWidth * dpr), h = Math.round(box.clientHeight * dpr);
+        if (!w || !h) return;
+        if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+        g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1;
+        g.clearRect(0, 0, w, h); g.drawImage(img, 0, 0, w, h);
+        ['multiply', 'screen'].forEach(function (mode) {
+          g.save();
+          g.globalCompositeOperation = mode; g.globalAlpha = VHS.grain; g.imageSmoothingEnabled = false;
+          g.scale(dpr, dpr);
+          g.translate(-Math.floor(Math.random() * VHS.tile), -Math.floor(Math.random() * VHS.tile));
+          g.fillStyle = g.createPattern(vhsTile(), 'repeat');
+          g.fillRect(0, 0, w / dpr + VHS.tile, h / dpr + VHS.tile);
+          g.restore();
+        });
+        g.globalCompositeOperation = 'destination-in'; g.globalAlpha = 1;
+        g.drawImage(img, 0, 0, w, h);
+        cv.style.opacity = Math.min(1, 1 + (Math.random() - 0.5) * VHS.flicker).toFixed(3);
+      }
+      function start() {
+        if (!img.naturalWidth) return;
+        box.appendChild(cv); box.classList.add('is-live');
+        requestAnimationFrame(frame);
+      }
+      if (img.complete) start(); else img.addEventListener('load', start);
+    });
+  });
+
   // ---------- GoatCounter events ----------
   // any element with data-goat-event fires a named event; shows up in the
   // GoatCounter dashboard alongside pageviews

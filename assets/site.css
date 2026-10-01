@@ -304,19 +304,24 @@ body.font-helvetica main .block-text { font-family: var(--font-body); }
 /* white outlines on the black; the one under the pointer fills in with its
    platform's own colour (--brand / --on-brand, set on the pill from
    listen.yml) – the one place the site takes a colour; white without one */
-.block-listen { text-align: center; padding: 0 16px; }
+.block-listen { text-align: center; padding: 0 min(16px, 3vw); }
 .listen-title, .listen-soon-note {
   margin: 0 0 16px; font-size: 13px; font-weight: 800;
   letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft);
 }
 .listen-soon-note { font-style: normal; }
 .listen-row { display: flex; flex-wrap: wrap; justify-content: center; }
+/* two to a row on a phone: under 480 wide the gap, the side padding and (under
+   370) the letters draw in with the screen, so Apple Podcasts + Spotify still
+   share a row at 375 (iPhone mini) and down to 320; from 480 up, as written.
+   Measure with the phone's own letters – its ui-monospace is SF Mono, wider
+   than Consolas or Menlo here */
 .listen-pill {
-  display: inline-block; margin: var(--listen-button-gap, 9px);
-  padding: 9px 24px 11px; border: 1.5px solid var(--ink); border-radius: 999px;
+  display: inline-block; margin: min(var(--listen-button-gap, 9px), 2vw);
+  padding: 9px clamp(14px, 5vw, 24px) 11px; border: 1.5px solid var(--ink); border-radius: 999px;
   background: transparent; color: var(--ink);
-  font-family: var(--font-display); font-weight: 700; font-size: 17px;
-  text-decoration: none;
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 4.6vw, 17px);
+  text-decoration: none; white-space: nowrap;
   transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
 }
 a.listen-pill:hover {

@@ -2,8 +2,9 @@
    page: a black screen, the grey tape-worn wordmark flickering at the top, the
    readers in white line under it. No colour anywhere — white and grey on
    black — so what can be pressed is drawn in white and everything else sits
-   back. Display type is Baloo 2 (the wordmark's chunky rounded cousin); body
-   is Nunito, same as the sister sites. */
+   back (a listen button under the pointer is the exception: its platform's). The page content is Consolas with its prose in Nunito; the chrome
+   (nav, newsletter, footer) keeps Baloo 2 and Nunito, same as the sister
+   sites. */
 
 /* ---------- global ---------- */
 * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -26,25 +27,23 @@ a { color: inherit; }
 h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); font-weight: 700; line-height: 1.15; }
 ::selection { background: var(--ink); color: var(--bg); }
 
-/* per-page fonts (Page settings → Font), scoped to the page content — the
-   header and footer keep the site chrome fonts */
+/* the page content is Consolas — titles, cards, buttons, captions — with the
+   prose (text blocks, show notes) left in Nunito; headings inside prose
+   (subtitles etc.) keep following --font-display. The header, newsletter and
+   footer keep the site chrome fonts. */
+main {
+  --font-body: var(--font-mono);
+  --font-display: var(--font-mono);
+  font-family: var(--font-body);
+}
+main .block-text { font-family: var(--font-prose); }
+/* per-page fonts (Page settings → Font), scoped to the page content */
 body.font-helvetica main {
   --font-body: Helvetica, Arial, sans-serif;
   --font-display: Arial, Helvetica, sans-serif;
   font-family: var(--font-body);
 }
-body.font-mono main {
-  /* CLInt renders in Consolas — lead with it; Apple systems without it fall
-     back to their nearest mono */
-  --font-body: Consolas, ui-monospace, 'SF Mono', Menlo, monospace;
-  --font-display: Consolas, ui-monospace, 'SF Mono', Menlo, monospace;
-  font-family: var(--font-body);
-}
-/* the Nunito/Consolas mix: prose stays Nunito even on a mono page — headings
-   inside it (subtitles etc.) keep following --font-display */
-body.font-mono main .block-text {
-  font-family: 'Nunito', Arial, Helvetica, sans-serif;
-}
+body.font-helvetica main .block-text { font-family: var(--font-body); }
 
 /* content links: white on a grey underline that lights up under the pointer */
 .block-text a, .post-body a, .episode-all a, .post-footer-nav a,
@@ -103,7 +102,7 @@ body.font-mono main .block-text {
 .newsletter-sub-title { margin-bottom: 25px; line-height: 1.4; color: var(--ink-soft); }
 .sign-up-box {
   display: inline-block; padding: 0 12px; margin-bottom: 17px; vertical-align: middle;
-  border-radius: 4px; border: 1px solid var(--rule); min-width: 480px; max-width: 635px; min-height: 38px;
+  border-radius: 12px; border: 1px solid var(--rule); min-width: 480px; max-width: 635px; min-height: 38px;
   color: var(--ink); background: var(--bg-raised); font: 16px var(--font-body);
 }
 .sign-up-box::placeholder { color: var(--ink-soft); opacity: 1; }
@@ -112,7 +111,7 @@ body.font-mono main .block-text {
 .mc-button {
   margin: 0 auto 25px; display: block; padding: 8px 10px; font-size: 16px;
   font-family: var(--font-body); font-weight: 800; background: var(--mc, var(--accent)); color: var(--on-accent);
-  width: 480px; max-width: 100%; border: none; border-radius: 4px; cursor: pointer;
+  width: 480px; max-width: 100%; border: none; border-radius: 12px; cursor: pointer;
 }
 /* a button colour chosen in the Newsletter block carries white words */
 .ycb-newsletter[style*="--mc"] .mc-button { color: #fff; }
@@ -192,7 +191,7 @@ body.font-mono main .block-text {
 .blk--audio { --mb: 24px; }
 .blk--episode-list { --mt: 24px; --mb: 40px; }
 .blk--hosts { --mt: 24px; --mb: 40px; }
-.blk--episode-header { --mt: 44px; --mb: 8px; }
+.blk--episode-header { --mt: 44px; --mb: 20px; }
 
 .only-desktop { display: block; }
 .only-mobile { display: none; }
@@ -302,7 +301,9 @@ body.font-mono main .block-text {
 }
 
 /* ---------- listen buttons ---------- */
-/* white outlines on the black; the one under the pointer fills in */
+/* white outlines on the black; the one under the pointer fills in with its
+   platform's own colour (--brand / --on-brand, set on the pill from
+   listen.yml) – the one place the site takes a colour; white without one */
 .block-listen { text-align: center; padding: 0 16px; }
 .listen-title, .listen-soon-note {
   margin: 0 0 16px; font-size: 13px; font-weight: 800;
@@ -316,9 +317,12 @@ body.font-mono main .block-text {
   background: transparent; color: var(--ink);
   font-family: var(--font-display); font-weight: 700; font-size: 17px;
   text-decoration: none;
-  transition: background-color 0.12s ease, color 0.12s ease;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
 }
-a.listen-pill:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+a.listen-pill:hover {
+  background: var(--brand, var(--accent)); border-color: var(--brand, var(--accent));
+  color: var(--on-brand, var(--on-accent));
+}
 .listen-pill.is-soon {
   border-style: dashed; border-color: var(--rule); color: var(--ink-soft);
 }
@@ -328,56 +332,62 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
 .ycb-listen-compact .dot { margin: 0 8px; }
 
 /* ---------- audio player ---------- */
-/* An instrument, drawn plainly: a raised grey panel behind a single hairline,
-   a thin filled track with a small round thumb, times either side, and a
-   skip / play / skip cluster with no boxes round it. --pos and --buf are set
-   by site.js as the audio plays: played fill and buffered wash. */
+/* Drawn in line like the rest of the page, with no panel and nothing filled:
+   the player is a row between two hairlines, the head of the chapter list
+   under it. −15, play and +30 — play the glyph alone, large and white, no
+   key drawn round it, dimming under the pointer; the skips as figures (the
+   arrows in the markup are not shown) — then the time, a thin track with an
+   upright bar for the playhead, and the length. --pos and --buf are set by site.js as the audio plays:
+   played line and buffered wash. */
 .block-audio { max-width: 660px; margin: 0 auto; padding: 0 16px; }
 .ycb-player {
   --pos: 0%; --buf: 0%;
   display: flex; align-items: center; gap: 18px;
-  border: 1px solid var(--hairline); border-radius: 12px;
-  background: var(--bg-raised);
-  padding: 16px 20px 16px 16px;
+  border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+  padding: 16px 4px;
 }
 .ycb-player > audio { display: none; }
 .ycb-player noscript audio { display: block; width: 100%; }
 .pl-controls { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
 .pl-play {
-  flex-shrink: 0; width: 50px; height: 50px; border-radius: 50%;
-  border: 0; background: var(--accent); cursor: pointer; color: var(--on-accent);
+  flex-shrink: 0; width: 56px; height: 44px; padding: 0;
+  border: 0; background: transparent; cursor: pointer; color: var(--accent);
   display: flex; align-items: center; justify-content: center;
-  transition: background-color 0.15s ease, transform 0.12s ease;
+  transition: color 0.12s ease, transform 0.12s ease;
 }
-.pl-play:hover { background: var(--accent-dim); }
-.pl-play:active { transform: scale(0.96); }
-.pl-play svg { width: 22px; height: 22px; fill: currentColor; }
+.pl-play:active { color: var(--accent-dim); transform: scale(0.94); }
+.pl-play svg { width: 38px; height: 38px; fill: currentColor; }
+.pl-play .pl-icon-pause rect { rx: 0; }
 .pl-icon-play { transform: translateX(1px); }
 .pl-play .pl-icon-pause { display: none; }
 .ycb-player.is-playing .pl-icon-play { display: none; }
 .ycb-player.is-playing .pl-icon-pause { display: block; }
 .pl-skip {
-  position: relative; width: 38px; height: 38px; border-radius: 50%;
-  border: 0; background: transparent; color: var(--ink-soft); cursor: pointer; padding: 0;
-  transition: background-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
+  min-width: 44px; height: 44px; padding: 0;
+  border: 0; background: transparent; color: var(--ink-soft); cursor: pointer;
+  transition: color 0.12s ease;
 }
-.pl-skip:hover { background: rgba(255, 255, 255, 0.09); color: var(--ink); }
-.pl-skip:active { transform: scale(0.92); }
-/* the glyph carries a heavy stroke in the markup — inside the player it is
-   drawn light, to sit beside the plain play disc */
-.pl-skip svg { width: 24px; height: 24px; display: block; margin: 0 auto; stroke-width: 1.9; }
-.pl-skip--fwd svg { transform: scaleX(-1); }
+.pl-skip:active { color: var(--ink); }
+/* under a pointer only: a finger's tap leaves :hover on, and the glyph would
+   stay dimmed */
+@media (hover: hover) {
+  .pl-play:hover { color: var(--accent-dim); }
+  .pl-skip:hover { color: var(--ink); }
+}
+.pl-skip svg { display: none; }
 .pl-skip span {
-  position: absolute; inset: 0; display: grid; place-items: center;
-  padding-top: 2px; font-family: var(--font-body); font-weight: 800; font-size: 9.5px;
-  letter-spacing: -0.2px; pointer-events: none;
+  font-family: var(--font-body); font-weight: 800; font-size: 13px;
+  letter-spacing: 0.6px; font-variant-numeric: tabular-nums;
 }
+.pl-skip--back span::before { content: '\2212'; }
+.pl-skip--fwd span::before { content: '+'; }
 .pl-main { flex: 1; min-width: 0; }
 .pl-title { font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.2; margin-bottom: 8px; }
-.pl-bar { display: flex; align-items: center; gap: 12px; }
-/* the chapter list under the player: plain rows, the time in the player's
-   figures, the current one lit while it plays */
-.ep-chapters { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--hairline); }
+.pl-bar { display: flex; align-items: center; gap: 14px; }
+/* the chapter list under the player: plain rows carrying on from the player's
+   own bottom line, the time in the player's figures, the current one lit
+   while it plays */
+.ep-chapters { list-style: none; margin: 0; padding: 0; }
 .ep-chapters li { border-bottom: 1px solid var(--hairline); }
 .ep-chapters button { display: flex; gap: 14px; align-items: baseline; width: 100%; padding: 9px 4px; margin: 0;
   background: none; border: 0; font: inherit; color: var(--ink-soft); text-align: left; cursor: pointer; border-radius: 6px; }
@@ -389,47 +399,47 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
 .ep-chapters li.is-current .ch-title { font-weight: 800; }
 .pl-time {
   flex-shrink: 0; min-width: 3.2em; font-size: 13px; font-weight: 800;
-  color: var(--ink-soft); font-variant-numeric: tabular-nums; letter-spacing: 0.2px;
+  color: var(--ink-soft); font-variant-numeric: tabular-nums; letter-spacing: 0.6px;
 }
 .pl-bar .pl-time:last-child { text-align: right; }
 .pl-time:empty { display: none; }
 
 /* the seek bar: a tall, invisible input for a generous hit target, with the
-   thin track and the thumb drawn on the pseudo-elements */
+   line of the track and the playhead — an upright bar, not a knob — drawn on
+   the pseudo-elements */
 .pl-seek {
   -webkit-appearance: none; appearance: none;
   flex: 1; min-width: 0; display: block; width: 100%; height: 28px; margin: 0;
   background: transparent; cursor: pointer; touch-action: none; outline: none;
 }
 .pl-seek::-webkit-slider-runnable-track {
-  height: 5px; border-radius: 999px;
+  height: 2px;
   background: linear-gradient(to right,
     var(--accent) 0 var(--pos),
-    rgba(255, 255, 255, 0.36) var(--pos) var(--buf),
-    rgba(255, 255, 255, 0.16) var(--buf) 100%);
-  transition: height 0.12s ease;
+    rgba(255, 255, 255, 0.4) var(--pos) var(--buf),
+    rgba(255, 255, 255, 0.18) var(--buf) 100%);
 }
 .pl-seek::-moz-range-track {
-  height: 5px; border-radius: 999px;
+  height: 2px;
   background: linear-gradient(to right,
     var(--accent) 0 var(--pos),
-    rgba(255, 255, 255, 0.36) var(--pos) var(--buf),
-    rgba(255, 255, 255, 0.16) var(--buf) 100%);
+    rgba(255, 255, 255, 0.4) var(--pos) var(--buf),
+    rgba(255, 255, 255, 0.18) var(--buf) 100%);
 }
 .pl-seek::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 12px; height: 12px; margin-top: -3px; border-radius: 50%;
+  -webkit-appearance: none; width: 3px; height: 16px; margin-top: -7px; border-radius: 0;
   background: var(--accent); border: 0;
   transition: transform 0.12s ease;
 }
 .pl-seek::-moz-range-thumb {
-  width: 12px; height: 12px; border-radius: 50%;
+  width: 3px; height: 16px; border-radius: 0;
   background: var(--accent); border: 0;
   transition: transform 0.12s ease;
 }
-.pl-seek:hover::-webkit-slider-thumb, .pl-seek:active::-webkit-slider-thumb { transform: scale(1.25); }
-.pl-seek:hover::-moz-range-thumb, .pl-seek:active::-moz-range-thumb { transform: scale(1.25); }
-.pl-seek:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.3); }
-.pl-seek:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.3); }
+.pl-seek:hover::-webkit-slider-thumb, .pl-seek:active::-webkit-slider-thumb { transform: scaleY(1.3); }
+.pl-seek:hover::-moz-range-thumb, .pl-seek:active::-moz-range-thumb { transform: scaleY(1.3); }
+.pl-seek:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3); }
+.pl-seek:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3); }
 .pl-seek:disabled { cursor: default; opacity: 0.5; }
 .pl-seek:disabled::-webkit-slider-thumb { transform: none; }
 .pl-seek:disabled::-moz-range-thumb { transform: none; }
@@ -452,6 +462,21 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
   background: var(--bg-raised);
 }
 
+/* the episode's book, left of the words: the front cover (blocks.js
+   episodeRow), which site.js draws as the videos' 3D book on a canvas laid
+   over the picture — the picture holds the box, and is what shows where the
+   book cannot be drawn. The link is written `hidden` so that a page ahead of
+   this sheet shows nothing; here it is shown. */
+.ep-card.has-cover { display: flex; align-items: center; gap: 28px; }
+.ep-cover[hidden] { display: block; }
+.ep-cover {
+  position: relative; flex: 0 0 var(--ep-cover-w, 105px);
+  aspect-ratio: var(--cover-ar, 2 / 3);
+}
+.ep-cover img, .episode-cover img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+.ep-cover canvas, .episode-cover canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ep-cover.is-live img, .episode-cover.is-live img { visibility: hidden; }
+
 .ep-info { flex: 1; min-width: 0; }
 .ep-kicker {
   margin: 0 0 2px; font-size: 12px; font-weight: 800;
@@ -465,30 +490,25 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
 .ep-desc { margin: 0 0 8px; font-size: 16px; }
 .ep-meta { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); }
 
-/* the CTA row: play in place, or read the notes */
+/* the row's one action: Listen now, a link to the episode's own page that
+   static/site.js has arrive already playing (is-going while it is fetched) */
 .ep-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; }
-.ep-play { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; flex: 1; }
-.ep-play > audio { display: none; }
 .ep-listen {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 7px 18px 8px 14px; cursor: pointer;
+  padding: 7px 22px 8px 14px; cursor: pointer;
   border: 0; border-radius: 999px;
   background: var(--accent); color: var(--on-accent);
   font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  text-decoration: none;
   transition: background-color 0.15s ease, transform 0.12s ease;
 }
-.ep-listen:hover { background: var(--accent-dim); }
+.ep-listen:hover { background: var(--accent-dim); color: var(--on-accent); }
 .ep-listen:active { transform: scale(0.98); }
+.ep-listen.is-going { background: var(--accent-dim); cursor: progress; }
 .ep-listen svg { width: 18px; height: 18px; fill: currentColor; }
-.ep-listen .pl-icon-pause, .ep-listen .ep-listen-pause { display: none; }
-.ep-play.is-playing .pl-icon-play, .ep-play.is-playing .ep-listen-play { display: none; }
-.ep-play.is-playing .pl-icon-pause, .ep-play.is-playing .ep-listen-pause { display: inline; }
+.ep-listen .pl-icon-pause { display: none; }
 
-/* the seek bar unfolds once the episode has started, and stays while paused */
-.ep-play { --pos: 0%; --buf: 0%; }
-.ep-bar { display: none; align-items: center; gap: 10px; flex: 1; min-width: 210px; }
-.ep-play.is-started .ep-bar { display: flex; }
-
+/* an episode with no sound yet: the plain link to its page */
 .ep-notes {
   font-family: var(--font-display); font-weight: 700; font-size: 16px;
   color: var(--ink); text-decoration: underline;
@@ -518,6 +538,17 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
 
 /* ---------- episode page header ---------- */
 .episode-header { text-align: center; max-width: var(--maxw-text); margin: 0 auto; padding: 0 16px; }
+/* the episode's book over its title: the card's turning book (above), larger,
+   and written `hidden` in the same way (build.js postContent) */
+.episode-cover[hidden] { display: block; }
+.episode-cover {
+  position: relative; width: var(--episode-cover-w, 150px); margin: 0 auto 22px;
+  aspect-ratio: var(--cover-ar, 2 / 3);
+}
+/* a page with the book starts nearer the wordmark than a title alone does:
+   on a phone the book has the same black over it as under it (23px to the
+   eye, wordmark's ink to book's, book's to title's) */
+.blk--episode-header:has(.episode-cover) { --mt: 20px; --mt-m: 8px; }
 .episode-header h1 { font-size: 34px; font-weight: 800; margin-bottom: 10px; }
 .episode-header .ep-book { font-size: 18px; margin-bottom: 8px; }
 .episode-header .ep-meta { margin-bottom: 0; }
@@ -528,9 +559,14 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
 .post-body .img-medium { max-width: min(520px, 100%); }
 .post-body .img-small { max-width: min(340px, 100%); }
 .post-footer-nav {
-  max-width: var(--maxw-text); margin: 0 auto; padding: 8px 16px 48px;
+  max-width: var(--maxw-text); margin: 0 auto; padding: 8px 16px 16px;
   font-family: var(--font-display); font-weight: 700;
 }
+/* on a phone the signup box's own 40px over it is the whole gap – the same
+   black under the link as over it; and the link sits centred, between the
+   centred ‘Also on’ line and the centred box, where at the left it lined up
+   with neither the prose (28px in) nor anything else */
+@media (max-width: 767px) { .post-footer-nav { padding-bottom: 0; text-align: center; } }
 
 /* ---------- hosts ---------- */
 /* Polaroids drawn in line, like the readers: each host is the outline of a
@@ -554,7 +590,7 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
 }
 .host-card {
   position: relative; width: 240px; text-align: center;
-  background: var(--bg); border: var(--print-line); padding: 12px 12px 16px;
+  background: var(--bg); border: var(--print-line); border-radius: 5px; padding: 12px 12px 16px;
   transform: rotate(-1deg);
   transition: transform .25s ease;
 }
@@ -570,7 +606,7 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
 }
 .host-card:nth-child(even)::before { transform: translateX(-50%) rotate(2.5deg); }
 .host-card:hover { transform: rotate(0) scale(1.04); z-index: 3; }
-.host-photo-wrap { position: relative; overflow: hidden; border: var(--print-line); background: #000; }
+.host-photo-wrap { position: relative; overflow: hidden; border: var(--print-line); border-radius: 3px; background: #000; }
 .host-photo {
   display: block; width: 100%; aspect-ratio: 1; object-fit: cover;
   filter: grayscale(1) contrast(1.08);
@@ -625,17 +661,27 @@ a.listen-pill:hover { background: var(--accent); border-color: var(--accent); co
   .ycb-nav a { font-size: 16px; }
   .ycb-header-logo { padding: 16px 22px 10px; }
   .episode-header h1 { font-size: 28px; }
+  .episode-cover { --episode-cover-w: 120px; margin-bottom: 18px; }
   /* phones: the bar takes the full width, the skip / play / skip cluster
      sits centred beneath it */
-  .ycb-player { flex-wrap: wrap; justify-content: center; gap: 10px 14px; padding: 16px 18px; }
+  .ycb-player { flex-wrap: wrap; justify-content: center; gap: 6px 14px; padding: 12px 4px 16px; }
   .pl-main { flex-basis: 100%; order: -1; }
-  .pl-controls { gap: 10px; }
-  .pl-play { width: 48px; height: 48px; }
+  .pl-controls { gap: 14px; }
   .episode-empty { padding: 20px 18px; }
-  /* phones: tighter card, and the Listen now row takes the full width */
+  /* phones: tighter card */
   .ep-card { padding: 18px 18px 20px; }
+  /* the book stands smaller, beside the episode's number and title alone:
+     the words under them take the card's full width, which a column beside
+     the book all the way down would have squeezed to a few words a line.
+     The card is the grid and .ep-info steps aside (contents), so its lines
+     are the grid's own: the heading lines in the second column, the book
+     down the first beside them, everything after across both. */
+  .ep-card.has-cover { display: grid; grid-template-columns: 65px 1fr; grid-template-rows: auto auto 1fr; gap: 0 16px; align-items: start; }
+  .ep-card.has-cover .ep-info { display: contents; }
+  .ep-card.has-cover .ep-info > * { grid-column: 1 / -1; }
+  .ep-card.has-cover .ep-info > .ep-kicker, .ep-card.has-cover .ep-info > .ep-title,
+  .ep-card.has-cover .ep-info > .ep-book { grid-column: 2; }
+  .ep-cover { grid-column: 1; grid-row: 1 / span 3; margin: 3px 0 12px; }
   .ep-title { font-size: 21px; }
   .ep-actions { gap: 10px 14px; }
-  .ep-play { flex-basis: 100%; }
-  .ep-bar { min-width: 0; }
 }

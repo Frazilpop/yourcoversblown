@@ -2,11 +2,12 @@
    black screen, the grey tape-worn wordmark, the readers in white line. There
    is no colour — black, white and the greys between — so the one accent is
    white itself. To bring a colour back, --accent (and --on-accent, the text
-   that sits on it) are the only two to change. */
+   that sits on it) are the only two to change. The one exception: a listen
+   button under the pointer takes its platform's colour (listen.yml). */
 :root {
   /* the screen & what is drawn on it */
   --bg: #000;
-  --bg-raised: #101010;     /* cards and the player — a step off the black */
+  --bg-raised: #101010;     /* cards — a step off the black */
   --bg-hover: #1a1a1a;
   --ink: #f1f1ef;           /* the wordmark's own off-white */
   --ink-soft: #a4a4a1;      /* meta lines, captions — 8:1 on black */
@@ -16,8 +17,8 @@
   --accent-dim: #cfcfcc;    /* the accent under the pointer */
   --on-accent: #000;
 
-  /* the polaroids (Meet your hosts): drawn in line, white like the readers */
-  --print-line: 1.5px solid var(--ink);
+  /* the polaroids (Meet your hosts): drawn in line, the signup box's grey */
+  --print-line: 1px solid var(--rule);
 
   /* chrome */
   --footer-bg: #000;
@@ -33,6 +34,10 @@
   /* type */
   --font-display: 'Baloo 2', 'Arial Rounded MT Bold', Arial, sans-serif;
   --font-body: 'Nunito', Arial, Helvetica, sans-serif;
+  --font-prose: 'Nunito', Arial, Helvetica, sans-serif;   /* text blocks + show notes */
+  /* the page content (site.css main). CLInt renders in Consolas — lead with
+     it; Apple systems without it fall back to their nearest mono */
+  --font-mono: Consolas, ui-monospace, 'SF Mono', Menlo, monospace;
   --fs-body: 106%;            /* ~17px */
   --lh-body: 1.65;
   --fs-page-title: 40px;

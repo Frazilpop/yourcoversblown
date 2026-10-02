@@ -13,6 +13,23 @@
   <itunes:category text="Arts"><itunes:category text="Books"/></itunes:category>
   <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
   <item>
+    <title>If Anyone Builds It, Everyone Dies – Eliezer Yudkowsky</title>
+    <link>https://yourcoversblown.com/episodes/if-anyone-builds-it-everyone-dies-eliezer-yudkowsky/</link>
+    <guid isPermaLink="true">https://yourcoversblown.com/episodes/if-anyone-builds-it-everyone-dies-eliezer-yudkowsky/</guid>
+    <pubDate>Fri, 02 Oct 2026 09:00:00 +0100</pubDate>
+    <description>The end of the world could only be a few megabytes away! This week superhuman AI might kill us all, so listen now before it's too late.</description>
+    <content:encoded><![CDATA[<p>What happens if AI reaches the level of super intelligence? Very bad things! At least according to Eliezer Yudkowsky, and this is the premise of his book. The hominid god looks down kindly on this latest episode of Your Cover's Blown.</p>
+<p>This week's book: <em>If Anyone Builds It, Everyone Dies</em> by Eliezer Yudkowsky (2025)</p>]]></content:encoded>
+    <enclosure url="https://yourcoversblown.com/media/episodes/ycb-003.mp3" length="57313509" type="audio/mpeg"/>
+    <itunes:episode>3</itunes:episode>
+    <itunes:duration>59:42</itunes:duration>
+    <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
+    <podcast:chapters url="https://yourcoversblown.com/media/episodes/ycb-003.chapters.json" type="application/json+chapters"/>
+    <itunes:explicit>true</itunes:explicit>
+    <dcmsx:book>If Anyone Builds It, Everyone Dies</dcmsx:book>
+    <dcmsx:bookAuthor>Eliezer Yudkowsky</dcmsx:bookAuthor>
+  </item>
+  <item>
     <title>Kitchen Confidential – Anthony Bourdain</title>
     <link>https://yourcoversblown.com/episodes/kitchen-confidential-anthony-bourdain/</link>
     <guid isPermaLink="true">https://yourcoversblown.com/episodes/kitchen-confidential-anthony-bourdain/</guid>

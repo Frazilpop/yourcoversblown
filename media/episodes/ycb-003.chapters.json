@@ -1,0 +1,37 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Evil is a construct"
+    },
+    {
+      "startTime": 127.6,
+      "title": "The end is near"
+    },
+    {
+      "startTime": 624.9,
+      "title": "Yudkowsky and the Rationalists"
+    },
+    {
+      "startTime": 826.1,
+      "title": "Will AI progress plateau?"
+    },
+    {
+      "startTime": 1519.2,
+      "title": "Can an AI want things?"
+    },
+    {
+      "startTime": 2470.5,
+      "title": "Rogue AI and the Sable scenario"
+    },
+    {
+      "startTime": 3147.7,
+      "title": "Hypothetical future"
+    },
+    {
+      "startTime": 3399.1,
+      "title": "AI Jobpocalypse – Wars vs Treck"
+    }
+  ]
+}

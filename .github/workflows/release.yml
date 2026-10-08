@@ -88,3 +88,23 @@ jobs:
         if: steps.release.outputs.released != ''
         id: deploy
         uses: actions/deploy-pages@v4
+
+      # GitHub's fine-grained tokens can have a fixed life, and a lapsed
+      # SCHEDULE_TOKEN stops every release at the checkout above. Every run
+      # (the Worker fires one each Friday, booked episode or not) says when it
+      # runs out, and warns from three weeks ahead. Never fails the run.
+      - name: Say when the holding repo's token runs out
+        if: always()
+        continue-on-error: true
+        env:
+          TOKEN: ${{ secrets.SCHEDULE_TOKEN }}
+        run: |
+          exp=$(curl -sI -m 20 -H "Authorization: Bearer $TOKEN" https://api.github.com/repos/Frazilpop/yourcoversblown-scheduled | tr -d '\r' | awk -F': ' 'tolower($1)=="github-authentication-token-expiration"{print $2}')
+          if [ -z "$exp" ]; then
+            echo "SCHEDULE_TOKEN has no expiry." | tee -a "$GITHUB_STEP_SUMMARY"
+          else
+            left=$(( ( $(date -u -d "$exp" +%s) - $(date -u +%s) ) / 86400 ))
+            echo "SCHEDULE_TOKEN expires $exp ($left days)." | tee -a "$GITHUB_STEP_SUMMARY"
+            [ "$left" -lt 21 ] && echo "::warning::SCHEDULE_TOKEN expires in $left days ($exp) – make a new one before then (docs/scheduled-release.md)."
+          fi
+          exit 0

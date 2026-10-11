@@ -4,6 +4,7 @@
   <title>Your Cover's Blown</title>
   <link>https://yourcoversblown.com/</link>
   <atom:link href="https://yourcoversblown.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <podcast:guid>aaae0414-bdf2-5d75-90e9-983cab46722e</podcast:guid>
   <language>en</language>
   <description>A non-fiction podcast about non-fiction books</description>
   <itunes:author>Have Your Cake And Eat It</itunes:author>
@@ -20,7 +21,7 @@
     <description>The end of the world could only be a few megabytes away! This week superhuman AI might kill us all, so listen now before it's too late.</description>
     <content:encoded><![CDATA[<p>What happens if AI reaches the level of super intelligence? Very bad things! At least according to Eliezer Yudkowsky, and this is the premise of his book. The hominid god looks down kindly on this latest episode of Your Cover's Blown.</p>
 <p>This week's book: <em>If Anyone Builds It, Everyone Dies</em> by Eliezer Yudkowsky (2025)</p>]]></content:encoded>
-    <enclosure url="https://yourcoversblown.com/media/episodes/ycb-003.mp3" length="57313509" type="audio/mpeg"/>
+    <enclosure url="https://op3.dev/e,pg=aaae0414-bdf2-5d75-90e9-983cab46722e/yourcoversblown.com/media/episodes/ycb-003.mp3" length="57313509" type="audio/mpeg"/>
     <itunes:episode>3</itunes:episode>
     <itunes:duration>59:42</itunes:duration>
     <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
@@ -37,7 +38,7 @@
     <description>Secrets from the kitchen exposed! This week we're ordering fish on a Monday.</description>
     <content:encoded><![CDATA[<p>Anthony Bourdain was a famous chef and travel writer. We're returning to where it all began with his tell all memoir Kitchen Confidential. Welcome to Your Cover's Blown, the podcast where we order fish on Mondays.</p>
 <p>This week's book: <em>Kitchen Confidential</em> by Anthony Bourdain (2000)</p>]]></content:encoded>
-    <enclosure url="https://yourcoversblown.com/media/episodes/ycb-002.mp3" length="39955393" type="audio/mpeg"/>
+    <enclosure url="https://op3.dev/e,pg=aaae0414-bdf2-5d75-90e9-983cab46722e/yourcoversblown.com/media/episodes/ycb-002.mp3" length="39955393" type="audio/mpeg"/>
     <itunes:episode>2</itunes:episode>
     <itunes:duration>41:37</itunes:duration>
     <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
@@ -54,7 +55,7 @@
     <description>An ex-FBI hostage negotiator teaches you how to get your way at work, at home and at the car dealership. This week we're learning to negotiate like a hostage.</description>
     <content:encoded><![CDATA[<p>Chris Voss was an FBI negotiator and his book contains many practical examples of applying the techniques he learned in everyday life. The downward inflecting DJ voice, mirroring and many other techniques will be studied. All this and more in the first episode of Your Cover's Blown, a reverse yes-ladder of a podcast that will have you uncontrollably exclaiming &quot;That's right!&quot; before the hour is through.</p>
 <p>This week's book: <em>Never Split the Difference</em> by Chris Voss (2016)</p>]]></content:encoded>
-    <enclosure url="https://yourcoversblown.com/media/episodes/ycb-001.mp3" length="46270816" type="audio/mpeg"/>
+    <enclosure url="https://op3.dev/e,pg=aaae0414-bdf2-5d75-90e9-983cab46722e/yourcoversblown.com/media/episodes/ycb-001.mp3" length="46270816" type="audio/mpeg"/>
     <itunes:episode>1</itunes:episode>
     <itunes:duration>48:12</itunes:duration>
     <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>

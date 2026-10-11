@@ -142,6 +142,17 @@
           var a = other !== box && other.querySelector('audio');
           if (a && !a.paused) a.pause();
         });
+        // the first start of this sound on the page is a GoatCounter event,
+        // play-<file> (play-ycb-003), beside the listen-pill clicks: the
+        // site's own plays, which the feed's download counter never sees.
+        // Pause and play again is the same listen; a sound handed over
+        // already running (Listen now) is counted here, once it arrives.
+        if (!audio.__ycbCounted && window.goatcounter && window.goatcounter.count) {
+          audio.__ycbCounted = true;
+          var file = src.replace(/^.*\//, '').replace(/\.[a-z0-9]+$/i, '');
+          var named = box.querySelector('.pl-title');
+          window.goatcounter.count({ path: 'play-' + file, title: named ? named.textContent : document.title, event: true });
+        }
       }
       audio.addEventListener('play', playing);
       if (!audio.paused) playing();   // handed over already running (Listen now)

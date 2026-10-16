@@ -14,6 +14,29 @@
   <itunes:category text="Arts"><itunes:category text="Books"/></itunes:category>
   <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
   <item>
+    <title>Mood Machine – Liz Pelly</title>
+    <link>https://yourcoversblown.com/episodes/mood-machine-liz-pelly/</link>
+    <guid isPermaLink="true">https://yourcoversblown.com/episodes/mood-machine-liz-pelly/</guid>
+    <pubDate>Fri, 16 Oct 2026 09:00:00 +0100</pubDate>
+    <description>The dark side of streaming exposed! This week we're bringing the chill vibes in the form of an algorithmically generated playlist. First they came for the low-fi beats, but we're speaking out.</description>
+    <content:encoded><![CDATA[<p>How do Spotify's algorithms shape our listening habits? How much AI-generated PFC has secretly been snuck into our daily diet, and what's the real cost of the perfect playlist? This week we're putting on our headphones and listening properly for once, in a dark room. The streaming figures are in, but those 0.001 pennies aren't adding up.</p>
+<p>This week's book: <em>Mood Machine</em> by Liz Pelly (2025)</p>
+<p>Further reading:
+How Music Got Free by Stephen Witt (2015)
+Perfect Sound Whatever by James Acaster (2019)
+Black Vinyl, White Powder by Simon Napier-Bell (2001)
+Information Doesn't Want to Be Free by Cory Doctorow (2014)
+How Music Works by David Byrne (2012)</p>]]></content:encoded>
+    <enclosure url="https://op3.dev/e,pg=aaae0414-bdf2-5d75-90e9-983cab46722e/yourcoversblown.com/media/episodes/ycb-004.mp3" length="84871722" type="audio/mpeg"/>
+    <itunes:episode>4</itunes:episode>
+    <itunes:duration>1:28:24</itunes:duration>
+    <itunes:image href="https://yourcoversblown.com/media/site/brand/show-cover.jpg"/>
+    <podcast:chapters url="https://yourcoversblown.com/media/episodes/ycb-004.chapters.json" type="application/json+chapters"/>
+    <itunes:explicit>true</itunes:explicit>
+    <dcmsx:book>Mood Machine</dcmsx:book>
+    <dcmsx:bookAuthor>Liz Pelly</dcmsx:bookAuthor>
+  </item>
+  <item>
     <title>If Anyone Builds It, Everyone Dies – Eliezer Yudkowsky</title>
     <link>https://yourcoversblown.com/episodes/if-anyone-builds-it-everyone-dies-eliezer-yudkowsky/</link>
     <guid isPermaLink="true">https://yourcoversblown.com/episodes/if-anyone-builds-it-everyone-dies-eliezer-yudkowsky/</guid>

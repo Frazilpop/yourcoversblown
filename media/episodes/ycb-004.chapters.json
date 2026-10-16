@@ -1,0 +1,49 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "A trip to the Library"
+    },
+    {
+      "startTime": 316.7,
+      "title": "Introducing Mood Machine"
+    },
+    {
+      "startTime": 1012.4,
+      "title": "LimeWire and the iPod Era"
+    },
+    {
+      "startTime": 1592.2,
+      "title": "Too much music!"
+    },
+    {
+      "startTime": 2150.7,
+      "title": "Perfect Fit Content"
+    },
+    {
+      "startTime": 3074.2,
+      "title": "Royalties and Record Labels"
+    },
+    {
+      "startTime": 3413.8,
+      "title": "Mood and Music Theory"
+    },
+    {
+      "startTime": 3785.4,
+      "title": "Lean Back Listeners"
+    },
+    {
+      "startTime": 4035.2,
+      "title": "Proposed Solutions"
+    },
+    {
+      "startTime": 4827.1,
+      "title": "Back to the Library"
+    },
+    {
+      "startTime": 5180.8,
+      "title": "Final Verdict"
+    }
+  ]
+}
